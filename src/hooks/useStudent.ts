@@ -1,7 +1,7 @@
-import { TSudent } from "../type";
+import { TStudent } from "../type";
 import { useDelay } from "../utils/useDelay";
 
-export const useStudent = async (url: string | undefined, ms:number): Promise<Partial<TSudent>> => {
+export const useStudent = async (url: string | undefined, ms:number): Promise<Partial<TStudent>> => {
     try {
       useDelay(ms)
       if (!url) {
@@ -11,7 +11,7 @@ export const useStudent = async (url: string | undefined, ms:number): Promise<Pa
         method: "GET",
       })
       const json = await apiResponse.json()
-      const dataClue: Partial<TSudent> = json[Math.floor(Math.random() * json.length)]
+      const dataClue: Partial<TStudent> = json[Math.floor(Math.random() * json.length)]
       return dataClue
     } catch (err:unknown) {
       if (err instanceof Error) {
