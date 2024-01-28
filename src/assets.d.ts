@@ -5,7 +5,7 @@ declare module '*.png' {
     export default value
   }
 
-declare module '*.flac' {
+declare module '*.mp3' {
     const value: string
     export default value
 }

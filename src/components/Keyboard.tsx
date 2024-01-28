@@ -1,7 +1,7 @@
-import { KeyboardProps } from "../type";
+import { TKeyboard } from "../type";
 import { KEYS } from "../utils/Keys";
 
-export const Keyboard = ({addGuessLetter}:KeyboardProps) => {
+export const Keyboard = ({addGuessLetter}:TKeyboard) => {
   return (
     <div className="grid grid-cols-12 gap-2 px-2 py-5 md:block">
       {KEYS.map((key) => {

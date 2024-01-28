@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react"
-import song from "@assets/01 Mitsukiyo 01 Constant Moderato.flac"
+import song from "@assets/01 Mitsukiyo 01 Constant Moderato.mp3"
 
 const App = () => {
   const audioRef = useRef<HTMLAudioElement>(new Audio(song))

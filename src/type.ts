@@ -1,4 +1,4 @@
-export type StudentType = {
+export type TStudent = {
     id: number;
     name: string;
     rarity: string;
@@ -7,25 +7,31 @@ export type StudentType = {
     profile: string;
 }
 
-export type HangmanClueProps = {
-    data: StudentType[]
+export type THangmanClue = {
+    data: TStudent[]
 }
 
-export type HangmanNameProps = {
+export type THangmanName = {
     letters: string[]
     data: string
 }
 
-export type HangmanDrawingProps = {
+export type THangmanDrawing = {
     data: number
 }
 
-export type KeyboardProps = {
+export type TKeyboard = {
     addGuessLetter: (letter: string) => void
   }
 
-export type ModalProps = {
+export type TModal = {
     title: string
     content: string
     image: string
+    blockquote: string
+}
+
+export type TMusicPlayer = {
+    isPlaying: boolean;
+    setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
   };

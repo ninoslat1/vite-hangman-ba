@@ -1,6 +1,7 @@
-import { HangmanClueProps} from "../type"
+import { THangmanClue } from "../type"
 
-export const HangmanClue = ({data}:HangmanClueProps) => {
+export const HangmanClue = ({data}:THangmanClue) => {
+
     return (
         <div className="sm:pb-2 pb-4 italic">
             {data.length > 0 ? (

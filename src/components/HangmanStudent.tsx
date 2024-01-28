@@ -1,7 +1,7 @@
-import { HangmanDrawingProps } from "../type"
+import { THangmanDrawing } from "../type"
 import { startImg, secondImg, thirdImg, fourthImg, fifthImg, lastImg } from "../templates/ImageList"
 
-export const HangmanStudent = ({data}:HangmanDrawingProps) => {
+export const HangmanStudent = ({data}:THangmanDrawing) => {
     if(data > 6){
         location.reload();
     }
@@ -12,7 +12,7 @@ export const HangmanStudent = ({data}:HangmanDrawingProps) => {
             <div className="h-[1vh] w-[25vw] bg-[#37a1fa] ml-10"></div>
             <div className="h-[50vh] w-[2.5vw] laptop:w-[1vw] desktop:w-[1vw] bg-[#37a1fa] ml-10"></div>
             <div className="h-[1vh] w-[25vw] bg-[#37a1fa]"></div>
-            <div className="h-[350px] w-[350px] absolute -top-8 -right-32 lg:-right-64 desktop:-right-32">
+            <div className="h-[400px] w-[400px] absolute -top-6 -right-44">
             {(() => {
         switch (data) {
             case 1:

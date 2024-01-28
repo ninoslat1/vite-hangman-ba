@@ -1,6 +1,6 @@
-import { HangmanNameProps } from "../type"
+import { THangmanName } from "../type"
 
-export const HangmanName = ({data, letters}:HangmanNameProps) => {
+export const HangmanName = ({data, letters}:THangmanName) => {
     
     return (
         <div className="flex gap-1 text-xl py-[1.075rem] laptop:text-3xl desktop:text-4xl font-bold uppercase font-os">
