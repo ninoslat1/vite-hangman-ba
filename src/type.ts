@@ -21,6 +21,8 @@ export type THangmanDrawing = {
 }
 
 export type TKeyboard = {
+    activeLetters: string[]
+    inactiveLetters: string[]
     addGuessLetter: (letter: string) => void
   }
 

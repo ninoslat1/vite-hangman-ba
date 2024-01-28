@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { TStudent } from './type'
 import { useStudent } from './hooks/useStudent'
 import { HangmanName } from './components/HangmanName'
@@ -16,14 +16,14 @@ function App() {
   const [isPlay, setIsPlay] = useState<boolean>(false)
   const [wordGuess, setWordGuess] = useState<string>('')
   const [guessedLetter, setGuessedLetter] = useState<string[]>([])
-  const falseGuess = guessedLetter.filter(letter => wordGuess.includes(letter))
-  const wrongCount = guessedLetter.length - falseGuess.length
+  const falseGuess = guessedLetter.filter(letter => !wordGuess.includes(letter))
+  // const wrongCount = guessedLetter.length - falseGuess.length
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
 
-  const addGuessLetter = (letter: string) => {
-  if(guessedLetter.includes(letter)) return
-  setGuessedLetter(currentLetters => [...currentLetters, letter])
-  }
+  const addGuessLetter = useCallback((letter: string) => {
+    if(guessedLetter.includes(letter)) return
+    setGuessedLetter(currentLetters => [...currentLetters, letter])
+  }, [guessedLetter])
 
   const playPause = () => {
     if (isPlaying) {
@@ -90,10 +90,10 @@ function App() {
             </div>
             <div className='flex flex-col mx-auto items-center'>
             <HangmanClue data={clue}/>
-            <HangmanStudent data={wrongCount}/>
+            <HangmanStudent data={falseGuess.length}/>
             <HangmanName data={wordGuess} letters={guessedLetter}/>
             <div className='items-stretch'>
-              <Keyboard addGuessLetter={addGuessLetter}/>
+              <Keyboard activeLetters={guessedLetter.filter(letter => wordGuess.includes(letter))} inactiveLetters={falseGuess} addGuessLetter={addGuessLetter}/>
             </div>
           </div>
           </div>
