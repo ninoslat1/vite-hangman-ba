@@ -44,7 +44,6 @@ function App() {
           if (dataClue) {
             setClue([dataClue as TStudent]);
             setWordGuess(dataClue.name!);
-            setIsPlay(true)
           }
         } catch (err) {
           console.error(err);
