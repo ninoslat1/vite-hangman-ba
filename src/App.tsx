@@ -17,8 +17,10 @@ function App() {
   const [wordGuess, setWordGuess] = useState<string>('')
   const [guessedLetter, setGuessedLetter] = useState<string[]>([])
   const falseGuess = guessedLetter.filter(letter => !wordGuess.includes(letter))
-  // const wrongCount = guessedLetter.length - falseGuess.length
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
+
+  const lose = falseGuess.length >= 6
+  const win = wordGuess.split("").every(letter => guessedLetter.includes(letter))
 
   const addGuessLetter = useCallback((letter: string) => {
     if(guessedLetter.includes(letter)) return
@@ -77,7 +79,7 @@ function App() {
 
       const MainComponent:React.FC = () => {
         return (
-          <div className="lg:py-[3vh] 2xl:py-0 fixed inset-0 flex items-center justify-center z-50 px-[5vw] md:px-[25vw]">
+          <div className="lg:py-[3vh] 2xl:py-0 fixed inset-0 flex items-center justify-center z-50">
           <BackgroundImage/>
           <div className="h-full w-full bg-blue-900 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-100">
             <Time/>
@@ -91,9 +93,9 @@ function App() {
             <div className='flex flex-col mx-auto items-center'>
             <HangmanClue data={clue}/>
             <HangmanStudent data={falseGuess.length}/>
-            <HangmanName data={wordGuess} letters={guessedLetter}/>
+            <HangmanName data={wordGuess} letters={guessedLetter} reveal={lose}/>
             <div className='items-stretch'>
-              <Keyboard activeLetters={guessedLetter.filter(letter => wordGuess.includes(letter))} inactiveLetters={falseGuess} addGuessLetter={addGuessLetter}/>
+              <Keyboard activeLetters={guessedLetter.filter(letter => wordGuess.includes(letter))} inactiveLetters={falseGuess} addGuessLetter={addGuessLetter} disabled={win || lose}/>
             </div>
           </div>
           </div>
