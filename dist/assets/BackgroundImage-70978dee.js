@@ -1,0 +1,1 @@
+import{j as s}from"./index-19805355.js";const e="/vite-hangman-ba/assets/bg-71a3c536.png",t=()=>s.jsx("div",{className:"bg-cyan-300 absolute h-full w-screen top-0 left-0 -z-50",children:s.jsx("img",{src:e,className:"absolute h-full w-screen object-cover brightness-50 -z-20"})});export{t as default};
