@@ -1,4 +1,4 @@
-import { Suspense, lazy, useCallback, useEffect, useRef, useState } from "react"
+import { FC, ReactNode, Suspense, lazy, useCallback, useEffect, useRef, useState } from "react"
 import { TStudent } from './type'
 import { useStudent } from './hooks/useStudent'
 import { HangmanName } from './components/HangmanName'
@@ -9,25 +9,38 @@ import song from "@assets/01 Mitsukiyo 01 Constant Moderato.mp3"
 
 //Lazyload Component
 const BackgroundImage = lazy(() => import('./components/BackgroundImage'));
-const ModalList = lazy(() => import('./templates/ModalList'))
+//const ModalList = lazy(() => import('./templates/ModalList'))
 const Time = lazy(() => import('./components/Time'))
 
 function App() {
   const audioRef = useRef<HTMLAudioElement>(new Audio(song))
   const [clue, setClue] = useState<TStudent[]>([])
-  const [isPlay, setIsPlay] = useState<boolean>(false)
+  //const [isPlay, setIsPlay] = useState<boolean>(false)
   const [wordGuess, setWordGuess] = useState<string>('')
   const [guessedLetter, setGuessedLetter] = useState<string[]>([])
   const falseGuess = guessedLetter.filter(letter => !wordGuess.includes(letter))
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
 
   const lose = falseGuess.length >= 6
-  const win = wordGuess.split("").every(letter => guessedLetter.includes(letter))
+  const win = wordGuess.split("").every(letter => guessedLetter.includes(letter)) && falseGuess.length < 6
+
+  const fetchData = async () => {
+    try {
+      const dataClue = await useStudent(process.env.VITE_API_URL, 3500)
+      if (dataClue) {
+        setClue([dataClue as TStudent])
+        setWordGuess(dataClue.name!)
+        console.log(dataClue!.name)
+      }
+    } catch (err) {
+      console.error(err)
+    }
+  }
 
   const addGuessLetter = useCallback((letter: string) => {
-    if(guessedLetter.includes(letter)) return
+    if(guessedLetter.includes(letter) || win || lose) return
     setGuessedLetter(currentLetters => [...currentLetters, letter])
-  }, [guessedLetter])
+  }, [guessedLetter, win, lose])
 
   const playPause = () => {
     if (isPlaying) {
@@ -40,20 +53,7 @@ function App() {
   }
 
     useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const dataClue = await useStudent(process.env.VITE_API_URL, 3500);
-          if (dataClue) {
-            setClue([dataClue as TStudent]);
-            setWordGuess(dataClue.name!);
-          }
-        } catch (err) {
-          console.error(err);
-        }
-      };
-
       fetchData()
-
       return () => {
         audioRef.current!.pause()
         audioRef.current!.currentTime = 0
@@ -61,24 +61,24 @@ function App() {
       
   }, []);
   
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      const key = e.key
-  
-      if (!key.match(/^[a-z]$/)) return
-      
-      e.preventDefault()
-      addGuessLetter(key)
-    }
-  
-    document.addEventListener("keypress", handler)
-    return () => {
-      document.removeEventListener("keypress", handler)
-    }
+    useEffect(() => {
+      const handler = (e: KeyboardEvent) => {
+        const key = e.key
     
+        if (!key.match(/^[a-z]$/)) return
+        
+        e.preventDefault()
+        addGuessLetter(key)
+      }
+      
+      document.addEventListener("keypress", handler)
+      return () => {
+        document.removeEventListener("keypress", handler)
+      }
+      
   }, [guessedLetter])
-
-      const MusicPlayer:React.FC = () => {
+  
+      const MusicPlayer:FC = () => {
         return (
           <div className="absolute right-5 top-5 md:right-10 md:top-10 z-50">
               <label className="swap">
@@ -89,8 +89,15 @@ function App() {
             </div>
         )
       }
+      
+      const LoadingComponent:ReactNode =  (
+          <div>
+            <p>Loading...</p>
+          </div>
+        )
+      
 
-      const MainComponent:React.FC = () => {
+      const MainComponent:FC = () => {
         return (
           <div className="lg:py-[3vh] 2xl:py-0 fixed inset-0 flex items-center justify-center z-50">
           <BackgroundImage/>
@@ -98,12 +105,12 @@ function App() {
             <Time/>
             <MusicPlayer/>
             <div className='flex flex-col mx-auto items-center'>
-            <HangmanClue data={clue}/>
-            <HangmanStudent data={falseGuess.length}/>
-            <HangmanName data={wordGuess} letters={guessedLetter} reveal={lose}/>
-            <div className='items-stretch'>
-              <Keyboard activeLetters={guessedLetter.filter(letter => wordGuess.includes(letter))} inactiveLetters={falseGuess} addGuessLetter={addGuessLetter} disabled={win || lose}/>
-            </div>
+              <HangmanClue data={clue}/>
+              <HangmanStudent data={falseGuess.length}/>
+              <HangmanName data={wordGuess} letters={guessedLetter} reveal={lose}/>
+              <div className='items-stretch'>
+                <Keyboard activeLetters={guessedLetter.filter(letter => wordGuess.includes(letter))} inactiveLetters={falseGuess} addGuessLetter={addGuessLetter} disabled={lose || win }/>
+              </div>
           </div>
           </div>
         </div>
@@ -112,16 +119,9 @@ function App() {
 
   return (
   <>
-  <Suspense fallback={<>Loading...</>}>
-      {isPlay ? (
+    <Suspense fallback={LoadingComponent}>
         <MainComponent/>
-      ) : (
-        <div>
-          <BackgroundImage/>
-          <ModalList setIsPlay={setIsPlay}/>
-        </div>
-      )}
-  </Suspense>
+    </Suspense>
   </>
   )
 }

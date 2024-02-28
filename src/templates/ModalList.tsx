@@ -1,12 +1,9 @@
-import { useState, Dispatch } from 'react';
+import { useState } from 'react';
 import { steps } from '../utils/ModalList';
+import { MultistepModalProps } from '../interface';
 
-const MultistepModal = ({ setIsPlay }: { setIsPlay: Dispatch<boolean> }) => {
+const MultistepModal: React.FC<MultistepModalProps> = ({ onClose }) => {
   const [currentStep, setCurrentStep] = useState<number>(0);
-
-  const handleClick = () => {
-    setIsPlay(true);
-  };
 
   const handleNextStep = () => {
     if (currentStep < steps.length - 1) {
@@ -20,7 +17,11 @@ const MultistepModal = ({ setIsPlay }: { setIsPlay: Dispatch<boolean> }) => {
     }
   };
 
-  const NextButton:React.FC = () => {
+  const handleClick = () => {
+    onClose();
+  };
+
+  const NextButton: React.FC = () => {
     return (
       <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded" onClick={handleNextStep}>
         Next
@@ -28,7 +29,7 @@ const MultistepModal = ({ setIsPlay }: { setIsPlay: Dispatch<boolean> }) => {
     )
   }
 
-  const FinishButton:React.FC = () => {
+  const FinishButton: React.FC = () => {
     return (
       <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded" onClick={handleClick}>
         Finish
@@ -36,7 +37,7 @@ const MultistepModal = ({ setIsPlay }: { setIsPlay: Dispatch<boolean> }) => {
     )
   }
 
-  const BackButton:React.FC = () => {
+  const BackButton: React.FC = () => {
     return (
       <button className={`bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded ${currentStep === 0 ? 'hidden' : ''}`} onClick={handlePreviousStep}>
         Back
@@ -66,5 +67,3 @@ const MultistepModal = ({ setIsPlay }: { setIsPlay: Dispatch<boolean> }) => {
 };
 
 export default MultistepModal;
-
-

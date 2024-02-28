@@ -12,7 +12,7 @@ export type THangmanClue = {
 }
 
 export type THangmanName = {
-    reveal: boolean
+    reveal: boolean | null
     letters: string[]
     data: string
 }
