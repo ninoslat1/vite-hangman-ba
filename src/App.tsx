@@ -15,14 +15,16 @@ const Time = lazy(() => import('./components/Time'))
 function App() {
   const audioRef = useRef<HTMLAudioElement>(new Audio(song))
   const [clue, setClue] = useState<TStudent[]>([])
-  //const [isPlay, setIsPlay] = useState<boolean>(false)
   const [wordGuess, setWordGuess] = useState<string>('')
   const [guessedLetter, setGuessedLetter] = useState<string[]>([])
   const falseGuess = guessedLetter.filter(letter => !wordGuess.includes(letter))
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
 
   const lose = falseGuess.length >= 6
-  const win = wordGuess.split("").every(letter => guessedLetter.includes(letter)) && falseGuess.length < 6
+  const win = falseGuess.length < 6 && [...new Set(wordGuess.toLowerCase())].join("") === guessedLetter.join("")
+
+  console.log(wordGuess)
+  console.log(guessedLetter)
 
   const fetchData = async () => {
     try {
@@ -104,6 +106,10 @@ function App() {
           <div className="h-full w-full bg-blue-900 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-100">
             <Time/>
             <MusicPlayer/>
+            <div style={{ fontSize: "2rem", textAlign: "center" }}>
+              {win && "Winner! - Refresh to try again"}
+              {lose && "Nice Try - Refresh to try again"}
+            </div>
             <div className='flex flex-col mx-auto items-center'>
               <HangmanClue data={clue}/>
               <HangmanStudent data={falseGuess.length}/>
