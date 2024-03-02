@@ -12,6 +12,7 @@ export type THangmanClue = {
 }
 
 export type THangmanName = {
+    reveal: boolean | null
     letters: string[]
     data: string
 }
@@ -21,6 +22,7 @@ export type THangmanDrawing = {
 }
 
 export type TKeyboard = {
+    disabled: boolean
     activeLetters: string[]
     inactiveLetters: string[]
     addGuessLetter: (letter: string) => void
