@@ -8,8 +8,7 @@ import { HangmanClue } from './components/HangmanClue'
 import song from "@assets/01 Mitsukiyo 01 Constant Moderato.mp3"
 
 //Lazyload Component
-const BackgroundImage = lazy(() => import('./components/BackgroundImage'));
-//const ModalList = lazy(() => import('./templates/ModalList'))
+const BackgroundImage = lazy(() => import('./components/BackgroundImage'))
 const Time = lazy(() => import('./components/Time'))
 
 function App() {
@@ -21,10 +20,7 @@ function App() {
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
 
   const lose = falseGuess.length >= 6
-  const win = falseGuess.length < 6 && [...new Set(wordGuess.toLowerCase())].join("") === guessedLetter.join("")
-
-  console.log(wordGuess)
-  console.log(guessedLetter)
+  const win = falseGuess.length < 6 && [...new Set(wordGuess.toLowerCase())].join("") === guessedLetter.join("") && guessedLetter.length != 0
 
   const fetchData = async () => {
     try {
@@ -56,6 +52,13 @@ function App() {
 
     useEffect(() => {
       fetchData()
+
+      if(win) {
+        alert("You win")
+      } else if(lose){
+        alert("You lose")
+      }
+
       return () => {
         audioRef.current!.pause()
         audioRef.current!.currentTime = 0
@@ -102,23 +105,21 @@ function App() {
       const MainComponent:FC = () => {
         return (
           <div className="lg:py-[3vh] 2xl:py-0 fixed inset-0 flex items-center justify-center z-50">
-          <BackgroundImage/>
-          <div className="h-full w-full bg-blue-900 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-100">
-            <Time/>
-            <MusicPlayer/>
-            <div style={{ fontSize: "2rem", textAlign: "center" }}>
-              {win && "Winner! - Refresh to try again"}
-              {lose && "Nice Try - Refresh to try again"}
-            </div>
-            <div className='flex flex-col mx-auto items-center'>
-              <HangmanClue data={clue}/>
-              <HangmanStudent data={falseGuess.length}/>
-              <HangmanName data={wordGuess} letters={guessedLetter} reveal={lose}/>
-              <div className='items-stretch'>
-                <Keyboard activeLetters={guessedLetter.filter(letter => wordGuess.includes(letter))} inactiveLetters={falseGuess} addGuessLetter={addGuessLetter} disabled={lose || win }/>
+          <Suspense fallback={LoadingComponent}>
+            <BackgroundImage/>
+            <div className="h-full w-full bg-blue-900 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-100">
+              <Time/>
+              <MusicPlayer/>
+              <div className='flex flex-col mx-auto items-center'>
+                <HangmanClue data={clue}/>
+                <HangmanStudent data={falseGuess.length}/>
+                <HangmanName data={wordGuess} letters={guessedLetter} reveal={lose}/>
+                <div className='items-stretch'>
+                  <Keyboard activeLetters={guessedLetter.filter(letter => wordGuess.includes(letter))} inactiveLetters={falseGuess} addGuessLetter={addGuessLetter} disabled={lose || win }/>
+                </div>
               </div>
-          </div>
-          </div>
+            </div>
+          </Suspense>
         </div>
         )
       }
