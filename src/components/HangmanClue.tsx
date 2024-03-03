@@ -29,7 +29,9 @@ export const HangmanClue = ({data}:THangmanClue) => {
                     </div>
                 ))
             ) : (
-                <p>Loading...</p>
+                <div className="min-w-screen min-h-screen inset-0 flex items-center justify-center z-50 text-white">
+                    <p><span className="loading loading-dots loading-lg px-5"></span>Load Clue</p>
+                </div>
             )}
         </div>
     )

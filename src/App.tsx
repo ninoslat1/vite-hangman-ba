@@ -96,8 +96,8 @@ function App() {
       }
       
       const LoadingComponent:ReactNode =  (
-          <div>
-            <p>Loading...</p>
+          <div className="fixed inset-0 flex items-center justify-center z-50 text-white">
+            <p><span className="loading loading-dots loading-lg px-5"></span>Loading...</p>
           </div>
         )
       
@@ -105,7 +105,6 @@ function App() {
       const MainComponent:FC = () => {
         return (
           <div className="lg:py-[3vh] 2xl:py-0 fixed inset-0 flex items-center justify-center z-50">
-          <Suspense fallback={LoadingComponent}>
             <BackgroundImage/>
             <div className="h-full w-full bg-blue-900 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-100">
               <Time/>
@@ -119,7 +118,6 @@ function App() {
                 </div>
               </div>
             </div>
-          </Suspense>
         </div>
         )
       }
