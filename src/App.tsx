@@ -1,15 +1,17 @@
-import { FC, ReactNode, Suspense, lazy, useCallback, useEffect, useRef, useState } from "react"
-import { TStudent } from './type'
+import { FC, Suspense, lazy, useCallback, useEffect, useRef, useState } from "react"
+import { TStudent } from './utils/type'
 import { useStudent } from './hooks/useStudent'
 import { HangmanName } from './components/HangmanName'
-import { Keyboard } from './components/Keyboard'
 import { HangmanStudent } from './components/HangmanStudent'
 import { HangmanClue } from './components/HangmanClue'
 import song from "@assets/01 Mitsukiyo 01 Constant Moderato.mp3"
+import { LoadingComponent } from "./components/LoadingComponent"
+import MultiStepModal from "./components/MultiStepModal"
 
 //Lazyload Component
 const BackgroundImage = lazy(() => import('./components/BackgroundImage'))
 const Time = lazy(() => import('./components/Time'))
+const Keyboard = lazy(() => import('./components/Keyboard'))
 
 function App() {
   const audioRef = useRef<HTMLAudioElement>(new Audio(song))
@@ -53,12 +55,6 @@ function App() {
     useEffect(() => {
       fetchData()
 
-      if(win) {
-        alert("You win")
-      } else if(lose){
-        alert("You lose")
-      }
-
       return () => {
         audioRef.current!.pause()
         audioRef.current!.currentTime = 0
@@ -95,12 +91,6 @@ function App() {
         )
       }
       
-      const LoadingComponent:ReactNode =  (
-          <div className="fixed inset-0 flex items-center justify-center z-50 text-white">
-            <p><span className="loading loading-dots loading-lg px-5"></span>Loading...</p>
-          </div>
-        )
-      
 
       const MainComponent:FC = () => {
         return (
@@ -117,6 +107,7 @@ function App() {
                   <Keyboard activeLetters={guessedLetter.filter(letter => wordGuess.includes(letter))} inactiveLetters={falseGuess} addGuessLetter={addGuessLetter} disabled={lose || win }/>
                 </div>
               </div>
+              <MultiStepModal/>
             </div>
         </div>
         )
@@ -124,7 +115,7 @@ function App() {
 
   return (
   <>
-    <Suspense fallback={LoadingComponent}>
+    <Suspense fallback={<LoadingComponent text={"Loading..."}/>}>
         <MainComponent/>
     </Suspense>
   </>

@@ -35,7 +35,6 @@ export type TModal = {
     blockquote: string
 }
 
-export type TMusicPlayer = {
-    isPlaying: boolean;
-    setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
-  };
+  export type TLoading = {
+    text: string
+  }
