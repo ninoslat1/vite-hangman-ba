@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction } from "react";
+
 export type TStudent = {
     id: number;
     name: string;
@@ -35,6 +37,10 @@ export type TModal = {
     blockquote: string
 }
 
-  export type TLoading = {
+export type TLoading = {
     text: string
-  }
+}
+
+export type TRightDownArrow = {
+    setIsOpen: Dispatch<SetStateAction<boolean>>
+}

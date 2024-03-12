@@ -6,6 +6,8 @@ import stickerSuprised from "@assets/sticker_kaget.png"
 import stickerPanic from "@assets/sticker_3.png"
 import stickerSuperPanic from "@assets/sticker_4.png"
 import stickerSoulLeave from "@assets/sticker_final.png"
+import bgImg from "@assets/bg.png"
+import clueImg from "@assets/clue.png"
 
 export const startImg = (
     <img src={stickerSleep} alt="Aru Sleep Chibi Image"/>
@@ -29,4 +31,12 @@ export const fifthImg = (
 
 export const lastImg = (
     <img src={stickerSoulLeave} alt="Aru Cry Chibi Image"/>
+)
+
+export const backImage = (
+    <img src={bgImg} alt="Background Image" className="absolute h-full w-screen object-cover brightness-50 -z-20 blur-sm"/>
+)
+
+export const guideOneImg = (
+    <img src={clueImg} alt="Clue Image" className="bg-center"/>
 )
