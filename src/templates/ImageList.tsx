@@ -1,5 +1,4 @@
 /**Importing Asset for Production */
-
 import stickerSleep from "@assets/sticker_sleep.png"
 import stickerDefault from "@assets/sticker.png"
 import stickerSuprised from "@assets/sticker_kaget.png"
