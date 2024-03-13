@@ -10,33 +10,33 @@ import bgImg from "@assets/bg.png"
 import clueImg from "@assets/clue.png"
 
 export const startImg = (
-    <img src={stickerSleep} alt="Aru Sleep Chibi Image"/>
+    <img src={stickerSleep} alt="Aru Sleep Chibi Image" loading="lazy"/>
 )
 
 export const secondImg = (
-    <img src={stickerDefault} alt="Aru Wake Up Chibi Image"/>
+    <img src={stickerDefault} alt="Aru Wake Up Chibi Image"  loading="lazy"/>
 )
 
 export const thirdImg = (
-    <img src={stickerSuprised} alt="Aru Startled Chibi Image"/>
+    <img src={stickerSuprised} alt="Aru Startled Chibi Image"  loading="lazy"/>
 )
 
 export const fourthImg = (
-    <img src={stickerPanic} alt="Aru Confused Chibi Image"/>
+    <img src={stickerPanic} alt="Aru Confused Chibi Image"  loading="lazy"/>
 )
 
 export const fifthImg = (
-    <img src={stickerSuperPanic} alt="Aru Shocked Chibi Image"/>
+    <img src={stickerSuperPanic} alt="Aru Shocked Chibi Image"  loading="lazy"/>
 )
 
 export const lastImg = (
-    <img src={stickerSoulLeave} alt="Aru Cry Chibi Image"/>
+    <img src={stickerSoulLeave} alt="Aru Cry Chibi Image"  loading="lazy"/>
 )
 
 export const backImage = (
-    <img src={bgImg} alt="Background Image" className="absolute h-full w-screen object-cover brightness-50 -z-20 blur-sm"/>
+    <img src={bgImg} alt="Background Image" className="absolute h-full w-screen object-cover brightness-50 -z-20 blur-sm"  loading="lazy"/>
 )
 
 export const guideOneImg = (
-    <img src={clueImg} alt="Clue Image" className="bg-center"/>
+    <img src={clueImg} alt="Clue Image" className="bg-center"  loading="lazy"/>
 )
