@@ -66,10 +66,11 @@ export const MultiStepModal = () => {
   };
 
   return (
-    <div className='flex justify-end'>
-      <button className="text-sky-200 font-bold text-xs" onClick={openModal}>
-        How to Play
-      </button>
+    <div className='absolute right-2.5 bottom-2.5'>
+      <div className="text-sky-200 font-bold text-xs flex gap-2.5 items-center">
+        <button onClick={openModal}>How to Play</button>
+        <button onClick={openModal}>For Developer</button>
+      </div>
 
       {isOpen && (
         <div className="fixed inset-0 flex items-center w-full bg-slate-900/70 text-white">

@@ -107,7 +107,7 @@ function App() {
                   <Keyboard activeLetters={guessedLetter.filter(letter => wordGuess.includes(letter))} inactiveLetters={falseGuess} addGuessLetter={addGuessLetter} disabled={lose || win }/>
                 </div>
               </div>
-              <MultiStepModal/>
+            <MultiStepModal/>
             </div>
         </div>
         )
