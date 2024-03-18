@@ -1,27 +1,11 @@
 import { useState } from 'react';
 import { guideOneImg } from '../templates/ImageList';
 import { RightDownArrow } from '../templates/IconList';
+import { closeModal, handleNextStep, handlePreviousStep, openModal } from '../utils/handleModal';
 
 export const MultiStepModal = () => {
   const [step, setStep] = useState(1);
   const [isOpen, setIsOpen] = useState(false);
-
-  const handleNextStep = () => {
-    setStep((prevStep) => prevStep + 1);
-  };
-
-  const handlePreviousStep = () => {
-    setStep((prevStep) => prevStep - 1);
-  };
-
-  const openModal = () => {
-    setIsOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsOpen(false);
-    setStep(1);
-  };
 
   const renderModalContent = () => {
     switch (step) {
@@ -68,8 +52,8 @@ export const MultiStepModal = () => {
   return (
     <div className='absolute right-2.5 bottom-2.5'>
       <div className="text-sky-200 font-bold text-xs flex gap-2.5 items-center">
-        <button onClick={openModal}>How to Play</button>
-        <button onClick={openModal}>For Developer</button>
+        <button onClick={() => openModal(setIsOpen)}>How to Play</button>
+        <button onClick={() => openModal(setIsOpen)}>For Developer</button>
       </div>
 
       {isOpen && (
@@ -79,17 +63,17 @@ export const MultiStepModal = () => {
 
             <div className="flex justify-between">
               {step > 1 && (
-                <button className="btn-main" onClick={handlePreviousStep}>
+                <button className="btn-main" onClick={() => handlePreviousStep(setStep)}>
                   Previous
                 </button>
               )}
 
               {step < 3 ? (
-                <button className="btn-main" onClick={handleNextStep}>
+                <button className="btn-main" onClick={() => handleNextStep(setStep)}>
                   Next
                 </button>
               ) : (
-                <button className="btn-main" onClick={closeModal}>
+                <button className="btn-main" onClick={() => closeModal(setIsOpen, setStep)}>
                   Close
                 </button>
               )}

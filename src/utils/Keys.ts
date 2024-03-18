@@ -1,4 +1,4 @@
-export const KEYS = [
+export const KEYS: string[] = [
   "a",
   "b",
   "c",
