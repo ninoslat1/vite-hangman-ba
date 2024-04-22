@@ -15,6 +15,8 @@ import bgImgPng from "@assets/bg.png"
 import bgImgWebp from "@assets/bg.webp"
 import clueImgPng from "@assets/clue.png"
 import clueImgWebp from "@assets/clue.webp"
+import finalClueImgPng from "@assets/finalClue.png"
+import finalClueImgWebp from "@assets/finalClue.webp"
 
 export const startImg = (
     <picture>
@@ -77,5 +79,13 @@ export const guideOneImg = (
         <source srcSet={clueImgWebp} type="image/webp" />
         <source srcSet={clueImgPng} type="image/png" />
         <img src={clueImgPng} alt="Clue Image" className="bg-center"  loading="lazy"/>
+    </picture>
+)
+
+export const finalGuideImg = (
+    <picture>
+        <source srcSet={finalClueImgWebp} type="image/webp" />
+        <source srcSet={finalClueImgPng} type="image/png" />
+        <img src={finalClueImgPng} alt="Clue Image" className="bg-center"  loading="lazy"/>
     </picture>
 )

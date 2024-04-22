@@ -1,18 +1,22 @@
 import { useState } from 'react';
-import { guideOneImg } from '../templates/ImageList';
+import { finalGuideImg, guideOneImg } from '../templates/ImageList';
 import { RightDownArrow } from '../templates/IconList';
-import { closeModal, handleNextStep, handlePreviousStep, openModal } from '../utils/handleModal';
+import { closeGuideModal, handleNextStep, handlePreviousStep, openGuideModal, openNoteModal } from '../utils/handleModal';
+import { DeveloperNotes } from './DeveloperNotes';
+import { GuideModalWrapper } from '../templates/GuideModalWrapper';
+import { NoteModalWrapper } from '../templates/NoteModalWrapper';
 
 export const MultiStepModal = () => {
-  const [step, setStep] = useState(1);
-  const [isOpen, setIsOpen] = useState(false);
+  const [step, setStep] = useState<number>(1)
+  const [isGuideOpen, setIsGuideOpen] = useState<boolean>(false)
+  const [isNoteOpen, setIsNoteOpen] = useState<boolean>(false)
 
   const renderModalContent = () => {
     switch (step) {
       case 1:
         return (
           <div>
-            <RightDownArrow setIsOpen={setIsOpen}/>
+            <RightDownArrow setIsGuideOpen={setIsGuideOpen}/>
             <h2 className='modal-head'>Welcome to Kivotos Hangman</h2>
             <p>Welcome to Blue Archive Hangman game. In this game, you must guess the student name before <span className='line-through font-bold pr-1'>Bak</span>Aru got totally hanged 😣</p>
           </div>
@@ -20,7 +24,7 @@ export const MultiStepModal = () => {
       case 2:
         return (
           <div>
-            <RightDownArrow setIsOpen={setIsOpen}/>
+            <RightDownArrow setIsGuideOpen={setIsGuideOpen}/>
             <h2 className='modal-head'>Guide: Part 1</h2>
             <div className='mx-auto'>
               {guideOneImg}
@@ -33,7 +37,7 @@ export const MultiStepModal = () => {
       case 3:
         return (
           <div>
-            <RightDownArrow setIsOpen={setIsOpen}/>
+            <RightDownArrow setIsGuideOpen={setIsGuideOpen}/>
             <h2 className='modal-head'>Guide: Part 2</h2>
             <p>We provide an additional keyboard component for guessing the student name. (If the keyboard doesn't work, Sensei can send ticket to Hare 😊<span className='line-through font-bold px-1'>and wait one week to resolve the issue</span>)</p>
           </div>
@@ -41,7 +45,12 @@ export const MultiStepModal = () => {
       case 4:
         return (
           <div>
-            
+            <RightDownArrow setIsGuideOpen={setIsGuideOpen}/>
+            <h2 className='modal-head'>Guide: Part 3</h2>
+            {finalGuideImg}
+            <div>
+              <p>We provide an additional keyboard component for guessing the student name. (If the keyboard doesn't work, Sensei can send ticket to Hare 😊<span className='line-through font-bold px-1'>and wait one week to resolve the issue</span>)</p>
+            </div>
           </div>
         )
       default:
@@ -52,13 +61,12 @@ export const MultiStepModal = () => {
   return (
     <div className='absolute right-2.5 bottom-2.5'>
       <div className="text-sky-200 font-bold text-xs flex gap-2.5 items-center">
-        <button onClick={() => openModal(setIsOpen)}>How to Play</button>
-        <button onClick={() => openModal(setIsOpen)}>For Developer</button>
+        <button onClick={() => openGuideModal(setIsGuideOpen)}>How to Play</button>
+        <button onClick={() => openNoteModal(setIsNoteOpen)}>For Developer</button>
       </div>
 
-      {isOpen && (
-        <div className="fixed inset-0 flex items-center w-full bg-slate-900/70 text-white">
-          <div className="bg-sky-400 p-8 rounded-lg max-w-md mx-auto">
+      {isGuideOpen ? (
+        <GuideModalWrapper>
             {renderModalContent()}
 
             <div className="flex justify-between">
@@ -68,19 +76,25 @@ export const MultiStepModal = () => {
                 </button>
               )}
 
-              {step < 3 ? (
+              {step < 4 ? (
                 <button className="btn-main" onClick={() => handleNextStep(setStep)}>
                   Next
                 </button>
               ) : (
-                <button className="btn-main" onClick={() => closeModal(setIsOpen, setStep)}>
+                <button className="btn-main" onClick={() => closeGuideModal(setIsGuideOpen, setStep)}>
                   Close
                 </button>
               )}
             </div>
-          </div>
-        </div>
-      )}
+        </GuideModalWrapper>
+        ): null}
+
+      {isNoteOpen ? (
+      <NoteModalWrapper>
+        <RightDownArrow setIsGuideOpen={setIsNoteOpen}/>
+        <DeveloperNotes/>
+      </NoteModalWrapper>
+      ): null}
     </div>
   );
 };

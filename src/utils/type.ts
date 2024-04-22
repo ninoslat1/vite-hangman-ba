@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, ReactNode, SetStateAction } from "react";
 
 export type TStudent = {
     id: number;
@@ -42,5 +42,9 @@ export type TLoading = {
 }
 
 export type TRightDownArrow = {
-    setIsOpen: Dispatch<SetStateAction<boolean>>
+    setIsGuideOpen: Dispatch<SetStateAction<boolean>>
+}
+
+export type TComponent = {
+    children: ReactNode
 }
