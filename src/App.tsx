@@ -78,6 +78,20 @@ function App() {
       }
       
   }, [guessedLetter])
+
+  useEffect(() => {
+      const handleKeyPress = (e: KeyboardEvent) => {
+        if(e.key === "ENTER" && win || lose){
+          window.location.reload()
+        }
+      }
+
+      document.addEventListener('keydown', handleKeyPress)
+
+      return () => {
+        document.removeEventListener('keydown', handleKeyPress)
+      }
+  },[win, lose])
   
       const MusicPlayer:FC = () => {
         return (
