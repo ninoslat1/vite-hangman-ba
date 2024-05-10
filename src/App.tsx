@@ -7,6 +7,9 @@ import { HangmanClue } from './components/HangmanClue'
 import song from "@assets/01 Mitsukiyo 01 Constant Moderato.mp3"
 import { LoadingComponent } from "./components/LoadingComponent"
 import MultiStepModal from "./components/MultiStepModal"
+import { Flip, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import ResultModalWrapper from "./templates/ResultModalWrapper"
 
 //Lazyload Component
 const BackgroundImage = lazy(() => import('./components/BackgroundImage'))
@@ -22,7 +25,7 @@ function App() {
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
 
   const lose = falseGuess.length >= 6
-  const win = falseGuess.length < 6 && [...new Set(wordGuess.toLowerCase())].join("") === guessedLetter.join("") && guessedLetter.length != 0
+  const win = falseGuess.length < 6 && [...new Set(wordGuess.toLowerCase().replace(" ", ""))].join("") === guessedLetter.join("")
 
   const fetchData = async () => {
     try {
@@ -30,7 +33,7 @@ function App() {
       if (dataClue) {
         setClue([dataClue as TStudent])
         setWordGuess(dataClue.name!)
-        console.log(dataClue!.name)
+        toast.success("Random student has appeared, guess her please")
       }
     } catch (err) {
       console.error(err)
@@ -80,16 +83,16 @@ function App() {
   }, [guessedLetter])
 
   useEffect(() => {
-      const handleKeyPress = (e: KeyboardEvent) => {
+      const handler = (e: KeyboardEvent) => {
         if(e.key === "ENTER" && win || lose){
           window.location.reload()
         }
       }
 
-      document.addEventListener('keydown', handleKeyPress)
+      document.addEventListener('keydown', handler)
 
       return () => {
-        document.removeEventListener('keydown', handleKeyPress)
+        document.removeEventListener('keydown', handler)
       }
   },[win, lose])
   
@@ -108,22 +111,26 @@ function App() {
 
       const MainComponent:FC = () => {
         return (
+          <>
           <div className="lg:py-[3vh] 2xl:py-0 fixed inset-0 flex items-center justify-center z-50">
-            <BackgroundImage/>
-            <div className="h-full w-full bg-blue-900 rounded-md bg-clip-padding bg-opacity-10 border border-gray-100">
-              <Time/>
-              <MusicPlayer/>
-              <div className='flex flex-col mx-auto items-center'>
-                <HangmanClue data={clue}/>
-                <HangmanStudent data={falseGuess.length}/>
-                <HangmanName data={wordGuess} letters={guessedLetter} reveal={lose}/>
-                <div className='items-stretch'>
-                  <Keyboard activeLetters={guessedLetter.filter(letter => wordGuess.includes(letter))} inactiveLetters={falseGuess} addGuessLetter={addGuessLetter} disabled={lose || win }/>
+              {win || lose ? <ResultModalWrapper/> : null}
+              <BackgroundImage/>
+              <div className="h-full w-full bg-blue-900 rounded-md bg-clip-padding bg-opacity-10 border border-gray-100">
+                <Time/>
+                <MusicPlayer/>
+                <div className='flex flex-col mx-auto items-center'>
+                  <HangmanClue data={clue}/>
+                  <HangmanStudent data={falseGuess.length}/>
+                  <HangmanName data={wordGuess} letters={guessedLetter} reveal={lose}/>
+                  <div className='items-stretch'>
+                    <Keyboard activeLetters={guessedLetter.filter(letter => wordGuess.includes(letter))} inactiveLetters={falseGuess} addGuessLetter={addGuessLetter} disabled={lose || win }/>
+                  </div>
                 </div>
+              <MultiStepModal/>
               </div>
-            <MultiStepModal/>
-            </div>
-        </div>
+              <ToastContainer position="top-right" autoClose={1000} hideProgressBar newestOnTop closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} theme="dark" transition={Flip}/>
+          </div>
+          </>
         )
       }
 

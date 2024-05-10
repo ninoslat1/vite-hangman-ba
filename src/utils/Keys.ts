@@ -25,7 +25,6 @@ export const KEYS: string[] = [
   "x",
   "y",
   "z",
-  "sp",
   "(",
   ")"
 ];
