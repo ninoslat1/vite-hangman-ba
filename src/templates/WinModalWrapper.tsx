@@ -1,7 +1,7 @@
 
 import { NoteModalWrapper } from './NoteModalWrapper'
 
-const ResultModalWrapper = () => {
+const WinModalWrapper = () => {
   return (
     <NoteModalWrapper>
         <p>You win</p>
@@ -10,4 +10,4 @@ const ResultModalWrapper = () => {
   )
 }
 
-export default ResultModalWrapper
+export default WinModalWrapper

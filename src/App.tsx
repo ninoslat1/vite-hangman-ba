@@ -9,7 +9,8 @@ import { LoadingComponent } from "./components/LoadingComponent"
 import MultiStepModal from "./components/MultiStepModal"
 import { Flip, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import ResultModalWrapper from "./templates/ResultModalWrapper"
+import WinModalWrapper from "./templates/WinModalWrapper"
+import LoseModalWrapper from "./templates/LoseModalWrapper"
 
 //Lazyload Component
 const BackgroundImage = lazy(() => import('./components/BackgroundImage'))
@@ -113,7 +114,8 @@ function App() {
         return (
           <>
           <div className="lg:py-[3vh] 2xl:py-0 fixed inset-0 flex items-center justify-center z-50">
-              {win || lose ? <ResultModalWrapper/> : null}
+              {win && wordGuess ? <WinModalWrapper/> : null}
+              {lose && wordGuess ? <LoseModalWrapper/> : null}
               <BackgroundImage/>
               <div className="h-full w-full bg-blue-900 rounded-md bg-clip-padding bg-opacity-10 border border-gray-100">
                 <Time/>

@@ -48,3 +48,8 @@ export type TRightDownArrow = {
 export type TComponent = {
     children: ReactNode
 }
+
+export type TResultComponent = {
+    win?: boolean
+    lose?: boolean
+}
