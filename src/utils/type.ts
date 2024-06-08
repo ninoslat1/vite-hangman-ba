@@ -53,3 +53,7 @@ export type TResultComponent = {
     win?: boolean
     lose?: boolean
 }
+
+export type TStatusClose = {
+    setStatusOpen: Dispatch<SetStateAction<boolean>>
+}

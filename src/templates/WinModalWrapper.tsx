@@ -1,12 +1,15 @@
-
+import { StatusClose } from './IconList'
 import { NoteModalWrapper } from './NoteModalWrapper'
 
+
 const WinModalWrapper = () => {
+
   return (
-    <NoteModalWrapper>
-        <p>You win</p>
-        <p>Thank you for playing our games</p>
-    </NoteModalWrapper>
+        <NoteModalWrapper>
+          <StatusClose/>
+          <p>You win</p>
+          <p>Thank you for playing our games</p>
+        </NoteModalWrapper>
   )
 }
 
