@@ -1,3 +1,5 @@
+import { Dispatch, ReactNode, SetStateAction } from "react";
+
 export type TStudent = {
     id: number;
     name: string;
@@ -35,7 +37,23 @@ export type TModal = {
     blockquote: string
 }
 
-export type TMusicPlayer = {
-    isPlaying: boolean;
-    setIsPlaying: React.Dispatch<React.SetStateAction<boolean>>;
-  };
+export type TLoading = {
+    text: string
+}
+
+export type TRightDownArrow = {
+    setIsGuideOpen: Dispatch<SetStateAction<boolean>>
+}
+
+export type TComponent = {
+    children: ReactNode
+}
+
+export type TResultComponent = {
+    win?: boolean
+    lose?: boolean
+}
+
+export type TStatusClose = {
+    setStatusOpen: Dispatch<SetStateAction<boolean>>
+}

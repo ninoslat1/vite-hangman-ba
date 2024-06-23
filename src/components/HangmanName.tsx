@@ -1,4 +1,4 @@
-import { THangmanName } from "../type"
+import { THangmanName } from "../utils/type"
 
 export const HangmanName = ({data, letters, reveal = false}:Partial<THangmanName>) => {
     

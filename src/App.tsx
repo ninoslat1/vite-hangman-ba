@@ -1,16 +1,21 @@
-import { FC, ReactNode, Suspense, lazy, useCallback, useEffect, useRef, useState } from "react"
-import { TStudent } from './type'
+import { FC, Suspense, lazy, useCallback, useEffect, useRef, useState } from "react"
+import { TStudent } from './utils/type'
 import { useStudent } from './hooks/useStudent'
 import { HangmanName } from './components/HangmanName'
-import { Keyboard } from './components/Keyboard'
 import { HangmanStudent } from './components/HangmanStudent'
 import { HangmanClue } from './components/HangmanClue'
 import song from "@assets/01 Mitsukiyo 01 Constant Moderato.mp3"
+import { LoadingComponent } from "./components/LoadingComponent"
+import MultiStepModal from "./components/MultiStepModal"
+import { Flip, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import WinModalWrapper from "./templates/WinModalWrapper"
+import LoseModalWrapper from "./templates/LoseModalWrapper"
 
 //Lazyload Component
-const BackgroundImage = lazy(() => import('./components/BackgroundImage'));
-//const ModalList = lazy(() => import('./templates/ModalList'))
+const BackgroundImage = lazy(() => import('./components/BackgroundImage'))
 const Time = lazy(() => import('./components/Time'))
+const Keyboard = lazy(() => import('./components/Keyboard'))
 
 function App() {
   const audioRef = useRef<HTMLAudioElement>(new Audio(song))
@@ -21,10 +26,7 @@ function App() {
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
 
   const lose = falseGuess.length >= 6
-  const win = falseGuess.length < 6 && [...new Set(wordGuess.toLowerCase())].join("") === guessedLetter.join("")
-
-  console.log(wordGuess)
-  console.log(guessedLetter)
+  const win = falseGuess.length < 6 && [...new Set(wordGuess.toLowerCase().replace(" ", ""))].join("") === guessedLetter.join("")
 
   const fetchData = async () => {
     try {
@@ -32,7 +34,7 @@ function App() {
       if (dataClue) {
         setClue([dataClue as TStudent])
         setWordGuess(dataClue.name!)
-        console.log(dataClue!.name)
+        toast.success("Random student has appeared, guess her please")
       }
     } catch (err) {
       console.error(err)
@@ -56,6 +58,7 @@ function App() {
 
     useEffect(() => {
       fetchData()
+
       return () => {
         audioRef.current!.pause()
         audioRef.current!.currentTime = 0
@@ -79,6 +82,20 @@ function App() {
       }
       
   }, [guessedLetter])
+
+  useEffect(() => {
+      const handler = (e: KeyboardEvent) => {
+        if(e.key === "ENTER" && win || lose){
+          window.location.reload()
+        }
+      }
+
+      document.addEventListener('keydown', handler)
+
+      return () => {
+        document.removeEventListener('keydown', handler)
+      }
+  },[win, lose])
   
       const MusicPlayer:FC = () => {
         return (
@@ -92,40 +109,36 @@ function App() {
         )
       }
       
-      const LoadingComponent:ReactNode =  (
-          <div>
-            <p>Loading...</p>
-          </div>
-        )
-      
 
       const MainComponent:FC = () => {
         return (
+          <>
           <div className="lg:py-[3vh] 2xl:py-0 fixed inset-0 flex items-center justify-center z-50">
-          <BackgroundImage/>
-          <div className="h-full w-full bg-blue-900 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10 border border-gray-100">
-            <Time/>
-            <MusicPlayer/>
-            <div style={{ fontSize: "2rem", textAlign: "center" }}>
-              {win && "Winner! - Refresh to try again"}
-              {lose && "Nice Try - Refresh to try again"}
-            </div>
-            <div className='flex flex-col mx-auto items-center'>
-              <HangmanClue data={clue}/>
-              <HangmanStudent data={falseGuess.length}/>
-              <HangmanName data={wordGuess} letters={guessedLetter} reveal={lose}/>
-              <div className='items-stretch'>
-                <Keyboard activeLetters={guessedLetter.filter(letter => wordGuess.includes(letter))} inactiveLetters={falseGuess} addGuessLetter={addGuessLetter} disabled={lose || win }/>
+              {win && wordGuess ? <WinModalWrapper/> : null}
+              {lose && wordGuess ? <LoseModalWrapper/> : null}
+              <BackgroundImage/>
+              <div className="h-full w-full bg-blue-900 rounded-md bg-clip-padding bg-opacity-10 border border-gray-100">
+                <Time/>
+                <MusicPlayer/>
+                <div className='flex flex-col mx-auto items-center'>
+                  <HangmanClue data={clue}/>
+                  <HangmanStudent data={falseGuess.length}/>
+                  <HangmanName data={wordGuess} letters={guessedLetter} reveal={lose}/>
+                  <div className='items-stretch'>
+                    <Keyboard activeLetters={guessedLetter.filter(letter => wordGuess.includes(letter))} inactiveLetters={falseGuess} addGuessLetter={addGuessLetter} disabled={lose || win }/>
+                  </div>
+                </div>
+              <MultiStepModal/>
               </div>
+              <ToastContainer position="top-right" autoClose={1000} hideProgressBar newestOnTop closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} theme="dark" transition={Flip}/>
           </div>
-          </div>
-        </div>
+          </>
         )
       }
 
   return (
   <>
-    <Suspense fallback={LoadingComponent}>
+    <Suspense fallback={<LoadingComponent text={"Loading..."}/>}>
         <MainComponent/>
     </Suspense>
   </>

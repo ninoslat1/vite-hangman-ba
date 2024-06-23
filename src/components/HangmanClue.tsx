@@ -1,4 +1,4 @@
-import { THangmanClue } from "../type"
+import { THangmanClue } from "../utils/type"
 
 export const HangmanClue = ({data}:THangmanClue) => {
 
@@ -29,7 +29,9 @@ export const HangmanClue = ({data}:THangmanClue) => {
                     </div>
                 ))
             ) : (
-                <p>Loading...</p>
+                <div className="min-w-screen min-h-screen inset-0 flex items-center justify-center z-50 text-white">
+                    <span className="loading loading-dots loading-lg"></span><p className="p-5">Load Clue</p>
+                </div>
             )}
         </div>
     )

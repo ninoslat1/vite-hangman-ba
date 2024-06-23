@@ -1,4 +1,4 @@
-import { TStudent } from "../type";
+import { TStudent } from "../utils/type";
 import { useDelay } from "../utils/useDelay";
 
 export const useStudent = async (url: string | undefined, ms:number): Promise<Partial<TStudent>> => {

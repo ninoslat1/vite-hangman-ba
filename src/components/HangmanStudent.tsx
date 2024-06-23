@@ -1,4 +1,4 @@
-import { THangmanDrawing } from "../type"
+import { THangmanDrawing } from "../utils/type"
 import { startImg, secondImg, thirdImg, fourthImg, fifthImg, lastImg } from "../templates/ImageList"
 
 export const HangmanStudent = ({data}:THangmanDrawing) => {
