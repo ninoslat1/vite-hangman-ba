@@ -28,18 +28,33 @@ function App() {
   const lose = falseGuess.length >= 6
   const win = falseGuess.length < 6 && [...new Set(wordGuess.toLowerCase().replace(" ", ""))].join("") === guessedLetter.join("")
 
+  // API
+  // const fetchData = async () => {
+  //   try {
+  //     const dataClue = await useStudent(process.env.VITE_API_URL, 3500)
+  //     if (dataClue) {
+  //       setClue([dataClue as TStudent])
+  //       setWordGuess(dataClue.name!)
+  //       toast.success("Random student has appeared, guess her please")
+  //     }
+  //   } catch (err) {
+  //     console.error(err)
+  //   }
+  // }
+
+  // Local JSON
   const fetchData = async () => {
     try {
-      const dataClue = await useStudent(process.env.VITE_API_URL, 3500)
+      const dataClue = await useStudent(3500);
       if (dataClue) {
-        setClue([dataClue as TStudent])
-        setWordGuess(dataClue.name!)
-        toast.success("Random student has appeared, guess her please")
+        setClue([dataClue as TStudent]);
+        setWordGuess(dataClue.name!);
+        toast.success("Random student has appeared, guess her please");
       }
     } catch (err) {
-      console.error(err)
+      console.error(err);
     }
-  }
+  };
 
   const addGuessLetter = useCallback((letter: string) => {
     if(guessedLetter.includes(letter) || win || lose) return
