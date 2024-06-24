@@ -7,8 +7,6 @@ import { HangmanClue } from './components/HangmanClue'
 import song from "@assets/01 Mitsukiyo 01 Constant Moderato.mp3"
 import { LoadingComponent } from "./components/LoadingComponent"
 import MultiStepModal from "./components/MultiStepModal"
-import { Flip, ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import WinModalWrapper from "./templates/WinModalWrapper"
 import LoseModalWrapper from "./templates/LoseModalWrapper"
 
@@ -28,18 +26,32 @@ function App() {
   const lose = falseGuess.length >= 6
   const win = falseGuess.length < 6 && [...new Set(wordGuess.toLowerCase().replace(" ", ""))].join("") === guessedLetter.join("")
 
+  // API
+  // const fetchData = async () => {
+  //   try {
+  //     const dataClue = await useStudent(process.env.VITE_API_URL, 3500)
+  //     if (dataClue) {
+  //       setClue([dataClue as TStudent])
+  //       setWordGuess(dataClue.name!)
+  //       toast.success("Random student has appeared, guess her please")
+  //     }
+  //   } catch (err) {
+  //     console.error(err)
+  //   }
+  // }
+
+  // Local JSON
   const fetchData = async () => {
     try {
-      const dataClue = await useStudent(process.env.VITE_API_URL, 3500)
+      const dataClue = await useStudent(3500);
       if (dataClue) {
-        setClue([dataClue as TStudent])
-        setWordGuess(dataClue.name!)
-        toast.success("Random student has appeared, guess her please")
+        setClue([dataClue as TStudent]);
+        setWordGuess(dataClue.name!);
       }
     } catch (err) {
-      console.error(err)
+      console.error(err);
     }
-  }
+  };
 
   const addGuessLetter = useCallback((letter: string) => {
     if(guessedLetter.includes(letter) || win || lose) return
@@ -130,7 +142,6 @@ function App() {
                 </div>
               <MultiStepModal/>
               </div>
-              <ToastContainer position="top-right" autoClose={1000} hideProgressBar newestOnTop closeOnClick={false} rtl={false} pauseOnFocusLoss={false} draggable={false} pauseOnHover={false} theme="dark" transition={Flip}/>
           </div>
           </>
         )
