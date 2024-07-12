@@ -1,5 +1,4 @@
 import { TStudent } from "../utils/type";
-import { useDelay } from "../utils/useDelay";
 import characterData from '../assets/character.json';
 
 // API
@@ -24,9 +23,8 @@ import characterData from '../assets/character.json';
 //   }
 
 // Local JSON
-export const useStudent = async (ms: number): Promise<Partial<TStudent>> => {
+export const useStudent = async (): Promise<Partial<TStudent>> => {
   try {
-    useDelay(ms);
     const json = JSON.parse(JSON.stringify(characterData));
     const dataClue = json[Math.floor(Math.random() * json.length)];
     return dataClue;

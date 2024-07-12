@@ -43,10 +43,11 @@ function App() {
   // Local JSON
   const fetchData = async () => {
     try {
-      const dataClue = await useStudent(3500);
+      const dataClue = await useStudent();
       if (dataClue) {
         setClue([dataClue as TStudent]);
         setWordGuess(dataClue.name!);
+        console.log(dataClue.name!)
       }
     } catch (err) {
       console.error(err);
@@ -68,9 +69,18 @@ function App() {
     setIsPlaying(!isPlaying);
   }
 
+  const handleKeyPress = useCallback((e: KeyboardEvent) => {
+    const key = e.key.toLowerCase();
+    if (!key.match(/^[a-z]$/)) return;
+    
+    e.preventDefault();
+    if (!guessedLetter.includes(key) && !win && !lose) {
+      setGuessedLetter(currentLetters => [...currentLetters, key]);
+    }
+  }, [guessedLetter, win, lose, addGuessLetter]);
+
     useEffect(() => {
       fetchData()
-
       return () => {
         audioRef.current!.pause()
         audioRef.current!.currentTime = 0
@@ -78,36 +88,19 @@ function App() {
       
   }, []);
   
-    useEffect(() => {
-      const handler = (e: KeyboardEvent) => {
-        const key = e.key
-    
-        if (!key.match(/^[a-z]$/)) return
-        
-        e.preventDefault()
-        addGuessLetter(key)
-      }
-      
-      document.addEventListener("keypress", handler)
+    useEffect(() => {      
+      document.addEventListener("keypress", handleKeyPress)
       return () => {
-        document.removeEventListener("keypress", handler)
+        document.removeEventListener("keypress", handleKeyPress)
       }
       
-  }, [guessedLetter])
+  }, [guessedLetter, win, lose, addGuessLetter])
 
   useEffect(() => {
-      const handler = (e: KeyboardEvent) => {
-        if(e.key === "ENTER" && win || lose){
-          window.location.reload()
-        }
-      }
-
-      document.addEventListener('keydown', handler)
-
-      return () => {
-        document.removeEventListener('keydown', handler)
-      }
-  },[win, lose])
+    const gameContainer = document.getElementById('game-container');
+    if (gameContainer) gameContainer.focus();
+  }, []);
+  
   
       const MusicPlayer:FC = () => {
         return (
@@ -124,10 +117,10 @@ function App() {
 
       const MainComponent:FC = () => {
         return (
-          <>
+          <div id="game-container" tabIndex={0}>
           <div className="lg:py-[3vh] 2xl:py-0 fixed inset-0 flex items-center justify-center z-50">
-              {win && wordGuess ? <WinModalWrapper/> : null}
-              {lose && wordGuess ? <LoseModalWrapper/> : null}
+              {win && wordGuess ? <WinModalWrapper win={win}/> : null}
+              {lose && wordGuess ? <LoseModalWrapper lose={lose}/> : null}
               <BackgroundImage/>
               <div className="h-full w-full bg-blue-900 rounded-md bg-clip-padding bg-opacity-10 border border-gray-100">
                 <Time/>
@@ -143,7 +136,7 @@ function App() {
               <MultiStepModal/>
               </div>
           </div>
-          </>
+          </div>
         )
       }
 

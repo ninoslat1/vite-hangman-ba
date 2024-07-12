@@ -11,6 +11,8 @@ export const HangmanStudent = ({data}:THangmanDrawing) => {
             <div className="h-[325px] w-[325px] md:h-[350px] md:w-[350px] absolute -top-[1rem] -right-44">
             {(() => {
         switch (data) {
+            case 0:
+                return null
             case 1:
                 return startImg
             case 2:
