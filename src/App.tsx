@@ -1,4 +1,4 @@
-import { FC, Suspense, lazy, useCallback, useEffect, useRef, useState } from "react"
+import { FC, Suspense, lazy, useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { TStudent } from './utils/type'
 import { useStudent } from './hooks/useStudent'
 import { HangmanName } from './components/HangmanName'
@@ -16,16 +16,23 @@ const Time = lazy(() => import('./components/Time'))
 const Keyboard = lazy(() => import('./components/Keyboard'))
 
 function App() {
+  const randomStudent = useMemo(() => useStudent(), [])
   const audioRef = useRef<HTMLAudioElement>(new Audio(song))
-  const [clue, setClue] = useState<TStudent[]>([])
-  const [wordGuess, setWordGuess] = useState<string>('')
+  const clueRef = useRef<Partial<TStudent>>({
+    squadType: randomStudent.squadType,
+    profile: randomStudent.profile,
+    rarity: randomStudent.rarity
+  })
+
+  const wordGuessRef = useRef<string>(randomStudent.name!)
   const [guessedLetter, setGuessedLetter] = useState<string[]>([])
-  const falseGuess = guessedLetter.filter(letter => !wordGuess.includes(letter))
+  const falseGuess = guessedLetter.filter(letter => !wordGuessRef.current.includes(letter))
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
 
   const lose = falseGuess.length >= 6
-  const win = falseGuess.length < 6 && [...new Set(wordGuess.toLowerCase().replace(" ", ""))].join("") === guessedLetter.join("")
+  const win = falseGuess.length < 6 && [...new Set(wordGuessRef.current.toLowerCase().replace(" ", ""))].join("") === guessedLetter.join("")
 
+  console.log(clueRef.current, wordGuessRef.current)
   // API
   // const fetchData = async () => {
   //   try {
@@ -39,20 +46,6 @@ function App() {
   //     console.error(err)
   //   }
   // }
-
-  // Local JSON
-  const fetchData = async () => {
-    try {
-      const dataClue = await useStudent();
-      if (dataClue) {
-        setClue([dataClue as TStudent]);
-        setWordGuess(dataClue.name!);
-        console.log(dataClue.name!)
-      }
-    } catch (err) {
-      console.error(err);
-    }
-  };
 
   const addGuessLetter = useCallback((letter: string) => {
     if(guessedLetter.includes(letter) || win || lose) return
@@ -80,13 +73,27 @@ function App() {
   }, [guessedLetter, win, lose, addGuessLetter]);
 
     useEffect(() => {
-      fetchData()
       return () => {
         audioRef.current!.pause()
         audioRef.current!.currentTime = 0
-      }
-      
+      } 
   }, []);
+
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      const key = e.key
+      if (key !== "Enter") return
+
+      e.preventDefault()
+      setGuessedLetter([])
+    }
+
+    document.addEventListener("keypress", handler)
+
+    return () => {
+      document.removeEventListener("keypress", handler)
+    }
+  }, [])
   
     useEffect(() => {      
       document.addEventListener("keypress", handleKeyPress)
@@ -96,12 +103,6 @@ function App() {
       
   }, [guessedLetter, win, lose, addGuessLetter])
 
-  useEffect(() => {
-    const gameContainer = document.getElementById('game-container');
-    if (gameContainer) gameContainer.focus();
-  }, []);
-  
-  
       const MusicPlayer:FC = () => {
         return (
           <div className="absolute right-5 top-5 md:right-10 md:top-10 z-50">
@@ -117,25 +118,23 @@ function App() {
 
       const MainComponent:FC = () => {
         return (
-          <div id="game-container" tabIndex={0}>
-          <div className="lg:py-[3vh] 2xl:py-0 fixed inset-0 flex items-center justify-center z-50">
-              {win && wordGuess ? <WinModalWrapper win={win}/> : null}
-              {lose && wordGuess ? <LoseModalWrapper lose={lose}/> : null}
+          <div className="fixed inset-0 flex items-center justify-center z-50">
+              {win && wordGuessRef.current ? <WinModalWrapper/> : null}
+              {lose && wordGuessRef.current ? <LoseModalWrapper/> : null}
               <BackgroundImage/>
-              <div className="h-full w-full bg-blue-900 rounded-md bg-clip-padding bg-opacity-10 border border-gray-100">
+              <div className="h-full py-40 w-full bg-blue-900 rounded-md bg-clip-padding bg-opacity-10 border border-gray-100">
                 <Time/>
                 <MusicPlayer/>
                 <div className='flex flex-col mx-auto items-center'>
-                  <HangmanClue data={clue}/>
+                  {/* <HangmanClue data={clue}/> */}
                   <HangmanStudent data={falseGuess.length}/>
-                  <HangmanName data={wordGuess} letters={guessedLetter} reveal={lose}/>
+                  <HangmanName data={wordGuessRef.current} letters={guessedLetter} reveal={lose}/>
                   <div className='items-stretch'>
-                    <Keyboard activeLetters={guessedLetter.filter(letter => wordGuess.includes(letter))} inactiveLetters={falseGuess} addGuessLetter={addGuessLetter} disabled={lose || win }/>
+                    <Keyboard activeLetters={guessedLetter.filter(letter => wordGuessRef.current.includes(letter))} inactiveLetters={falseGuess} addGuessLetter={addGuessLetter} disabled={lose || win }/>
                   </div>
                 </div>
               <MultiStepModal/>
               </div>
-          </div>
           </div>
         )
       }

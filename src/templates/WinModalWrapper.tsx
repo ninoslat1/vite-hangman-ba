@@ -1,22 +1,7 @@
-import { useEffect } from 'react'
 import { NoteModalWrapper } from './NoteModalWrapper'
 
 
-const WinModalWrapper = ({win}:{win:boolean}) => {
-
-  useEffect(() => {
-    const handleKeydown = (e: KeyboardEvent) => {
-      if (e.key === "Enter" && win) {
-        window.location.reload()
-      }
-    }
-
-    document.addEventListener('keydown', handleKeydown)
-
-    return () => {
-      document.removeEventListener('keydown', handleKeydown)
-    }
-  }, [win])
+const WinModalWrapper = () => {
 
   return (
         <NoteModalWrapper>
