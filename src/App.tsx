@@ -16,23 +16,22 @@ const Time = lazy(() => import('./components/Time'))
 const Keyboard = lazy(() => import('./components/Keyboard'))
 
 function App() {
-  const randomStudent = useMemo(() => useStudent(), [])
   const audioRef = useRef<HTMLAudioElement>(new Audio(song))
-  const clueRef = useRef<Partial<TStudent>>({
-    squadType: randomStudent.squadType,
-    profile: randomStudent.profile,
-    rarity: randomStudent.rarity
-  })
-
-  const wordGuessRef = useRef<string>(randomStudent.name!)
+  const [wordGuess, setWordGuess] = useState<Partial<TStudent>>(useStudent())
   const [guessedLetter, setGuessedLetter] = useState<string[]>([])
-  const falseGuess = guessedLetter.filter(letter => !wordGuessRef.current.includes(letter))
+  const falseGuess = guessedLetter.filter(letter => wordGuess.name!.includes(letter))
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
-
   const lose = falseGuess.length >= 6
-  const win = falseGuess.length < 6 && [...new Set(wordGuessRef.current.toLowerCase().replace(" ", ""))].join("") === guessedLetter.join("")
-
-  console.log(clueRef.current, wordGuessRef.current)
+  const win = falseGuess.length < 6 && [...new Set(wordGuess.name!.toLowerCase().replace(" ", ""))].join("") === guessedLetter.join("")
+  
+  const [clue, setClue] = useState<Partial<TStudent>>({
+    squadType: wordGuess.squadType,
+    profile: wordGuess.profile,
+    rarity: wordGuess.rarity,
+    school: wordGuess.school,
+    name: wordGuess.name
+  })
+  
   // API
   // const fetchData = async () => {
   //   try {
@@ -86,6 +85,15 @@ function App() {
 
       e.preventDefault()
       setGuessedLetter([])
+      const fetchStudent = useStudent()
+      setWordGuess(fetchStudent)
+      setClue({
+        squadType: fetchStudent.squadType,
+        profile: fetchStudent.profile,
+        rarity: fetchStudent.rarity,
+        school: wordGuess.school,
+        name: wordGuess.name
+      })
     }
 
     document.addEventListener("keypress", handler)
@@ -119,18 +127,18 @@ function App() {
       const MainComponent:FC = () => {
         return (
           <div className="fixed inset-0 flex items-center justify-center z-50">
-              {win && wordGuessRef.current ? <WinModalWrapper/> : null}
-              {lose && wordGuessRef.current ? <LoseModalWrapper/> : null}
+              {win && wordGuess ? <WinModalWrapper/> : null}
+              {lose && wordGuess ? <LoseModalWrapper/> : null}
               <BackgroundImage/>
               <div className="h-full py-40 w-full bg-blue-900 rounded-md bg-clip-padding bg-opacity-10 border border-gray-100">
                 <Time/>
                 <MusicPlayer/>
                 <div className='flex flex-col mx-auto items-center'>
-                  {/* <HangmanClue data={clue}/> */}
+                  <HangmanClue squadType={clue.squadType!} profile={clue.profile!} name={clue.name!} school={clue.school!} rarity={clue.rarity!}/>
                   <HangmanStudent data={falseGuess.length}/>
-                  <HangmanName data={wordGuessRef.current} letters={guessedLetter} reveal={lose}/>
+                  <HangmanName data={wordGuess.name} letters={guessedLetter} reveal={lose}/>
                   <div className='items-stretch'>
-                    <Keyboard activeLetters={guessedLetter.filter(letter => wordGuessRef.current.includes(letter))} inactiveLetters={falseGuess} addGuessLetter={addGuessLetter} disabled={lose || win }/>
+                    <Keyboard activeLetters={guessedLetter.filter(letter => wordGuess.name!.includes(letter))} inactiveLetters={falseGuess} addGuessLetter={addGuessLetter} disabled={lose || win }/>
                   </div>
                 </div>
               <MultiStepModal/>

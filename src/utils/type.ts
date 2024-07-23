@@ -10,7 +10,11 @@ export type TStudent = {
 }
 
 export type THangmanClue = {
-    data: Partial<TStudent>
+    squadType: string
+    profile: string
+    rarity: string
+    school: string
+    name: string
 }
 
 export type THangmanName = {
