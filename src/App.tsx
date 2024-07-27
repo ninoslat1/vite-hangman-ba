@@ -4,7 +4,7 @@ import { useStudent } from './hooks/useStudent'
 import { HangmanName } from './components/HangmanName'
 import { HangmanStudent } from './components/HangmanStudent'
 import { HangmanClue } from './components/HangmanClue'
-import song from "@assets/01 Mitsukiyo 01 Constant Moderato.mp3"
+import song from "/01 Mitsukiyo 01 Constant Moderato.mp3"
 import { LoadingComponent } from "./components/LoadingComponent"
 import MultiStepModal from "./components/MultiStepModal"
 import WinModalWrapper from "./templates/WinModalWrapper"

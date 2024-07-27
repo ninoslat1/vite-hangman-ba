@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { NoteModalWrapper } from './NoteModalWrapper'
 
 const LoseModalWrapper = () => {
