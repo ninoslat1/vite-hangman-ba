@@ -7,7 +7,7 @@ export const HangmanName = ({data, letters, reveal = false}:Partial<THangmanName
             {data?.toLowerCase().split("").map((letter,index) => (
                 <span className={letters?.includes(letter) || reveal ? "text-[#CFF1FB]" : "border-b-2 border-[#2f89e3]"} key={index}>
                     <span className={`${letters?.includes(letter) || reveal ? "visible" : "invisible"} ${!letters?.includes(letter) && reveal ? "text-red-400" : "text-[#CFF1FB]"}`}>
-                        {letter}
+                        {letter.replace(/[^a-zA-Z]/g, '')}
                     </span>
                 </span>
             ))}
