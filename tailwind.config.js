@@ -10,7 +10,6 @@ export default {
         "ijo": "#65fb72"
       },
       fontFamily: {
-        'cabin': ['Cabin',],
         'kanit': ['Kanit,']
       },
       screens: {

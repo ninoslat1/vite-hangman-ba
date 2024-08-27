@@ -6,7 +6,7 @@ export const HangmanClue = ({squadType, profile, rarity, school, name}:THangmanC
         <div className="sm:pb-2 pb-4 italic">
             {squadType && profile && rarity ? (
                     <div className="mx-auto py-4 font-bold">
-                        <p className="text-center text-xl font-bold font-qs py-2 text-[#2f89e3] font-cabin">Clue</p>
+                        <p className="text-center text-xl font-bold font-qs py-2 text-[#2f89e3] font-kanit">Clue</p>
                         <div className="flex gap-4 font-kanit">
                             <div className="desktop:py-0 laptop:py-0 hover:cursor-pointer">
                                 <div className="before:w-[15rem] tooltip tooltip-bottom flex items-center" data-tip={`${squadType} in ${school.replace(/([a-z])([A-Z]+)/g, '$1 $2')}`}>

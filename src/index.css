@@ -2,6 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer main {
+    @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+    
+    @keyframes fadeOut {
+        from { opacity: 1; transform: translateY(0); }
+        to { opacity: 0; transform: translateY(-20px); }
+    }
+    
+    .fade-in {
+        animation: fadeIn 0.3s ease-out forwards;
+    }
+    
+    .fade-out {
+        animation: fadeOut 0.3s ease-out forwards;
+    }
+}
+
 @layer components {
     .btn-main {
         @apply text-white bg-slate-900 p-2.5 rounded-lg my-5;

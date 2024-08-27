@@ -61,3 +61,9 @@ export type TResultComponent = {
 export type TStatusClose = {
     setStatusOpen: Dispatch<SetStateAction<boolean>>
 }
+
+export type TAnimatedStep = {
+    children: ReactNode
+    hasAnimated: boolean
+    setHasAnimated: Dispatch<SetStateAction<boolean>>
+}

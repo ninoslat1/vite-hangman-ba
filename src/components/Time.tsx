@@ -15,7 +15,7 @@ const Time = () => {
   }, []);
 
   return (
-    <div className="md:text-[0.5rem] text-xs lg:text-base font-cabin italic absolute left-5 top-5 md:left-10 md:top-10 z-50 text-[#2f89e3] font-extralight md:font-bold bg-[#CFF1FB] p-1 md:p-2 rounded-md md:rounded-2xl text-center">
+    <div className="md:text-[0.5rem] text-xs lg:text-base font-kanit italic absolute left-5 top-5 md:left-10 md:top-10 z-50 text-[#2f89e3] font-extralight md:font-bold bg-[#CFF1FB] p-1 md:p-2 rounded-md md:rounded-2xl text-center">
       <div ref={currentDateRef}>
         {currentDate.getDate()}/{currentDate.getMonth() + 1}/{currentDate.getFullYear()}
       </div>
