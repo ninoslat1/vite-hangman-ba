@@ -6,9 +6,6 @@ export default {
   ],
   theme: {
     extend: {
-      colors: {
-        "ijo": "#65fb72"
-      },
       fontFamily: {
         'kanit': ['Kanit,']
       },

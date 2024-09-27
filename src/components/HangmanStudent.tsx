@@ -6,7 +6,7 @@ export const HangmanStudent = ({data}:THangmanDrawing) => {
         <div className="relative">
             <div className="h-[10vh] w-[2.5vw] laptop:w-[1vw] desktop:w-[1vw] bg-[#37a1fa] top-0 right-0 absolute"></div>
             <div className="h-[1vh] w-[25vw] bg-[#37a1fa] ml-10"></div>
-            <div className="h-[50vh] w-[2.5vw] laptop:w-[1vw] desktop:w-[1vw] bg-[#37a1fa] ml-10"></div>
+            <div className="h-[35vh] md:h-[40vh] laptop:h-[50vh] desktop:h-[50vh] w-[2.5vw] laptop:w-[1vw] desktop:w-[1vw] bg-[#37a1fa] ml-10"></div>
             <div className="h-[1vh] w-[25vw] bg-[#37a1fa]"></div>
             <div className="h-[325px] w-[325px] md:h-[350px] md:w-[350px] absolute -top-[1rem] -right-44">
             {(() => {

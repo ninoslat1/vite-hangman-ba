@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { finalGuideImg, guideOneImg } from '../templates/ImageList';
 import { RightDownArrow } from '../templates/IconList';
-import { closeGuideModal, handleNextStep, handlePreviousStep, openGuideModal, openNoteModal } from '../utils/handleModal';
+import { closeGuideModal, handleNextStep, handlePreviousStep, openGuideModal } from '../utils/handleModal';
 import { DeveloperNotes } from './DeveloperNotes';
 import { GuideModalWrapper } from '../templates/GuideModalWrapper';
 import { NoteModalWrapper } from '../templates/NoteModalWrapper';
@@ -58,10 +58,12 @@ export const MultiStepModal = () => {
     }
 
   return (
-    <div className='absolute right-2.5 bottom-2.5 z-[100]'>
-      <div className="text-sky-200 font-bold text-xs flex gap-2.5 items-center">
+    <>
+      <div className="text-sky-200 font-bold text-xs inline-flex gap-2.5 items-center w-full justify-between px-5">
         <button onClick={() => openGuideModal(setIsGuideOpen)}>How to Play</button>
-        <button onClick={() => openNoteModal(setIsNoteOpen)}>For Developer</button>
+        <div className="justify-between">
+          <DeveloperNotes />
+        </div>
       </div>
 
       {isGuideOpen ? (
@@ -93,12 +95,13 @@ export const MultiStepModal = () => {
       ) : null}
 
       {isNoteOpen ? (
-      <NoteModalWrapper>
-        <RightDownArrow setIsGuideOpen={setIsNoteOpen}/>
-        <DeveloperNotes/>
-      </NoteModalWrapper>
+        <>
+          <NoteModalWrapper>
+            <RightDownArrow setIsGuideOpen={setIsNoteOpen}/>
+          </NoteModalWrapper>
+        </>
       ): null}
-    </div>
+    </>
     );
   };
 

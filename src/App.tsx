@@ -26,7 +26,7 @@ function App() {
 
   const [clue, setClue] = useState<Partial<TStudent>>({
     squadType: wordGuess.squadType,
-    profile: wordGuess.profile,
+    profile: wordGuess.profile && wordGuess.profile.replace(new RegExp(`[^.!?]*\\b${wordGuess.name}\\b[^.!?]*[.!?]`, 'g'), '').trim().replace(/\s+/g, ' '),
     rarity: wordGuess.rarity,
     school: wordGuess.school,
     name: wordGuess.name
@@ -90,7 +90,7 @@ function App() {
         setWordGuess(fetchStudent)
         setClue({
           squadType: fetchStudent.squadType,
-          profile: fetchStudent.profile,
+          profile: fetchStudent.profile !== undefined ? fetchStudent.profile.replace(new RegExp(`[^.!?]*\\b${fetchStudent.name}\\b[^.!?]*[.!?]`, 'g'), '').trim().replace(/\s+/g, ' ') : "",
           rarity: fetchStudent.rarity,
           school: wordGuess.school,
           name: wordGuess.name
@@ -115,7 +115,7 @@ function App() {
 
       const MusicPlayer:FC = () => {
         return (
-          <div className="absolute right-5 top-5 md:right-10 md:top-10 z-50">
+          <div className="absolute right-5 top-5 md:right-10 md:top-10">
               <label className="swap">
                 <input type="checkbox" checked={isPlaying} onChange={playPause} />
                 <svg className="swap-on fill-current text-[#CFF1FB] bg-[#2f89e3] w-8 h-8 lg:w-10 lg:h-10 p-2 rounded-full" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z"/></svg>
@@ -127,24 +127,28 @@ function App() {
       
       const MainComponent:FC = () => {
         return (
-          <div className="fixed inset-0 flex items-center justify-center z-50">
-              {win && wordGuess ? <WinModalWrapper/> : null}
-              {lose && wordGuess ? <LoseModalWrapper/> : null}
-              <BackgroundImage/>
-              <div className="h-full py-20 w-full bg-blue-900 rounded-md bg-clip-padding bg-opacity-10 border border-gray-100">
-                <Time/>
-                <MusicPlayer/>
-                <div className='flex flex-col mx-auto items-center'>
-                  <HangmanClue squadType={clue.squadType!} profile={clue.profile!} name={clue.name!} school={clue.school!} rarity={clue.rarity!}/>
-                  <HangmanStudent data={falseGuess.length}/>
-                  <HangmanName data={wordGuess.name} letters={guessedLetter} reveal={lose}/>
-                  <div className='items-stretch'>
-                    <Keyboard activeLetters={guessedLetter.filter(letter => wordGuess.name!.includes(letter))} inactiveLetters={falseGuess} addGuessLetter={addGuessLetter} disabled={lose || win }/>
+          <>
+            {clue && wordGuess &&
+              <div className="fixed inset-0 flex items-center justify-center">
+                  {win && wordGuess ? <WinModalWrapper/> : null}
+                  {lose && wordGuess ? <LoseModalWrapper/> : null}
+                  <BackgroundImage/>
+                  <div className="h-full py-20 w-full bg-blue-900 rounded-md bg-clip-padding bg-opacity-10 border border-gray-100">
+                    <Time/>
+                    <MusicPlayer/>
+                    <div className='flex flex-col mx-auto items-center'>
+                      <HangmanClue squadType={clue.squadType!} profile={clue.profile!} name={clue.name!} school={clue.school!} rarity={clue.rarity!}/>
+                      <HangmanStudent data={falseGuess.length}/>
+                      <HangmanName data={wordGuess.name} letters={guessedLetter} reveal={lose}/>
+                      <div className='items-stretch'>
+                        <Keyboard activeLetters={guessedLetter.filter(letter => wordGuess.name!.includes(letter))} inactiveLetters={falseGuess} addGuessLetter={addGuessLetter} disabled={lose || win }/>
+                      </div>
+                    </div>
+                  <MultiStepModal/>
                   </div>
-                </div>
-              <MultiStepModal/>
               </div>
-          </div>
+          }
+          </>
         )
       }
 
