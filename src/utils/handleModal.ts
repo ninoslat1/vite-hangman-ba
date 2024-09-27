@@ -1,12 +1,32 @@
 import { Dispatch, SetStateAction } from "react"
 
-export const handleNextStep = (setStep:Dispatch<SetStateAction<number>>) => {
-    setStep((prevStep) => prevStep + 1)
-}
-
-export const handlePreviousStep = (setStep:Dispatch<SetStateAction<number>>) => {
-    setStep((prevStep) => prevStep - 1)
-}
+export const handlePreviousStep = (
+    setStep: Dispatch<SetStateAction<number>>,
+    setIsAnimating: Dispatch<SetStateAction<boolean>>,
+    isAnimating: boolean
+  ) => {
+    if (!isAnimating) {
+      setIsAnimating(true);
+      setTimeout(() => {
+        setStep(prevStep => prevStep - 1);
+        setIsAnimating(false);
+      }, 300);
+    }
+  };
+  
+  export const handleNextStep = (
+    setStep: Dispatch<SetStateAction<number>>,
+    setIsAnimating: Dispatch<SetStateAction<boolean>>,
+    isAnimating: boolean
+  ) => {
+    if (!isAnimating) {
+      setIsAnimating(true);
+      setTimeout(() => {
+        setStep(prevStep => prevStep + 1);
+        setIsAnimating(false);
+      }, 300);
+    }
+  };
 
 export const openGuideModal = (setIsGuideOpen:Dispatch<SetStateAction<boolean>>) => {
     setIsGuideOpen(true)

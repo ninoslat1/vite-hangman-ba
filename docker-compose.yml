@@ -1,0 +1,9 @@
+version: '3.7'
+
+services:
+  vite-hangman-ba:
+    image: ninoslat1/vite-hangman-ba:latest
+    container_name: vite-hangman-ba
+    ports:
+      - "5173:5173"
+    restart: always

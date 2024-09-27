@@ -1,5 +1,4 @@
 import { TStudent } from "../utils/type";
-import { useDelay } from "../utils/useDelay";
 import characterData from '../assets/character.json';
 
 // API
@@ -24,16 +23,6 @@ import characterData from '../assets/character.json';
 //   }
 
 // Local JSON
-export const useStudent = async (ms: number): Promise<Partial<TStudent>> => {
-  try {
-    useDelay(ms);
-    const json = JSON.parse(JSON.stringify(characterData));
-    const dataClue = json[Math.floor(Math.random() * json.length)];
-    return dataClue;
-  } catch (err: unknown) {
-    if (err instanceof Error) {
-      throw new Error(err.message);
-    }
-    throw new Error("An error occurred");
-  }
+export const useStudent = (): Partial<TStudent> => {
+  return characterData[Math.floor(Math.random() * characterData.length)]
 };

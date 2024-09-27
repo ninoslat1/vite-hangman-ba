@@ -7,7 +7,6 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        'cabin': ['Cabin',],
         'kanit': ['Kanit,']
       },
       screens: {

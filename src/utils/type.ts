@@ -10,7 +10,11 @@ export type TStudent = {
 }
 
 export type THangmanClue = {
-    data: TStudent[]
+    squadType: string
+    profile: string
+    rarity: string
+    school: string
+    name: string
 }
 
 export type THangmanName = {
@@ -56,4 +60,10 @@ export type TResultComponent = {
 
 export type TStatusClose = {
     setStatusOpen: Dispatch<SetStateAction<boolean>>
+}
+
+export type TAnimatedStep = {
+    children: ReactNode
+    hasAnimated: boolean
+    setHasAnimated: Dispatch<SetStateAction<boolean>>
 }
