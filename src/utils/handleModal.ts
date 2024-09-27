@@ -10,7 +10,7 @@ export const handlePreviousStep = (
       setTimeout(() => {
         setStep(prevStep => prevStep - 1);
         setIsAnimating(false);
-      }, 300); // Sesuaikan dengan durasi animasi CSS
+      }, 300);
     }
   };
   
@@ -24,7 +24,7 @@ export const handlePreviousStep = (
       setTimeout(() => {
         setStep(prevStep => prevStep + 1);
         setIsAnimating(false);
-      }, 300); // Sesuaikan dengan durasi animasi CSS
+      }, 300);
     }
   };
 

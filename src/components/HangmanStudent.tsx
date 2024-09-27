@@ -13,18 +13,18 @@ export const HangmanStudent = ({data}:THangmanDrawing) => {
         switch (data) {
             case 0:
                 return null
-            case 1:
-                return startImg
-            case 2:
-                return secondImg 
-            case 3:
-                return thirdImg
-            case 4:
-                return fourthImg 
-            case 5:
-                return fifthImg
-            case 6:
-                return lastImg
+                case 1:
+                    return <div className="zoom-in">{startImg}</div>;
+                case 2:
+                    return <div className="zoom-in">{secondImg}</div>;
+                case 3:
+                    return <div className="zoom-in">{thirdImg}</div>;
+                case 4:
+                    return <div className="zoom-in">{fourthImg}</div>;
+                case 5:
+                    return <div className="zoom-in">{fifthImg}</div>;
+                case 6:
+                    return <div className="zoom-in">{lastImg}</div>;
             default:
                 return null
         }
