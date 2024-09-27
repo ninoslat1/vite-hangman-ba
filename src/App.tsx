@@ -80,20 +80,22 @@ function App() {
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      const key = e.key
-      if (key !== "Enter") return
-
-      e.preventDefault()
-      setGuessedLetter([])
-      const fetchStudent = useStudent()
-      setWordGuess(fetchStudent)
-      setClue({
-        squadType: fetchStudent.squadType,
-        profile: fetchStudent.profile,
-        rarity: fetchStudent.rarity,
-        school: wordGuess.school,
-        name: wordGuess.name
-      })
+      if (win || lose){
+        const key = e.key
+        if (key !== "Enter") return
+  
+        e.preventDefault()
+        setGuessedLetter([])
+        const fetchStudent = useStudent()
+        setWordGuess(fetchStudent)
+        setClue({
+          squadType: fetchStudent.squadType,
+          profile: fetchStudent.profile,
+          rarity: fetchStudent.rarity,
+          school: wordGuess.school,
+          name: wordGuess.name
+        })
+      }
     }
 
     document.addEventListener("keypress", handler)
@@ -101,7 +103,7 @@ function App() {
     return () => {
       document.removeEventListener("keypress", handler)
     }
-  }, [])
+  }, [win, lose])
   
     useEffect(() => {      
       document.addEventListener("keypress", handleKeyPress)

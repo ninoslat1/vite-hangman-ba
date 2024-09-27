@@ -1,7 +1,6 @@
 import { THangmanClue } from "../utils/type"
 
 export const HangmanClue = ({squadType, profile, rarity, school, name}:THangmanClue) => {
-
     return (
         <div className="sm:pb-2 pb-4 italic">
             {squadType && profile && rarity ? (
@@ -15,7 +14,7 @@ export const HangmanClue = ({squadType, profile, rarity, school, name}:THangmanC
 
                             </div>
                             <div className="desktop:py-0 laptop:py-0 hover:cursor-pointer">
-                                <div className="before:w-[15rem] tooltip tooltip-bottom flex items-center" data-tip={profile.replace(new RegExp(`[^.!?]*\\b${name.match(/\b\w+\b/)![0]}\\b[^.!?]*[.!?]`, 'g'), '')}>
+                                <div className="before:w-[15rem] tooltip tooltip-bottom flex items-center" data-tip={profile.replace(new RegExp(`[^.!?]*\\b${name}\\b[^.!?]*[.!?]`, 'g'), '').trim().replace(/\s+/g, ' ')}>
                                     <p className="bg-transparent border-none text-[#CFF1FB] hover:bg-transparent">Profile</p>
                                 </div>
                             </div> 

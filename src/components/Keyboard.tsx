@@ -12,7 +12,7 @@ const Keyboard = ({activeLetters, inactiveLetters, addGuessLetter, disabled = fa
           <button
             key={key}
             onClick={() => addGuessLetter(key)}
-            className={`cursor-pointer bg-[#dae8ef] text-[#4776a2] hover:bg-[#4776a2] hover:text-[#dae8ef] duration-300 laptop:text-lg desktop:text-lg font-bold uppercase m-2 p-4 rounded-lg md:col-span-2 ${isActiveLetters ? "bg-[hsl(200,100%,50%)] text-[white]" : ""} ${isInactiveLetters ? "opacity-30" : ""}`}
+            className={`cursor-pointer bg-[#dae8ef] text-[#4776a2] hover:bg-[#4776a2] hover:text-[#dae8ef] duration-300 laptop:text-lg desktop:text-lg font-bold uppercase m-2 px-3 py-3 rounded-lg md:col-span-2 ${isActiveLetters ? "bg-[hsl(200,100%,50%)] text-[white]" : ""} ${isInactiveLetters ? "opacity-30" : ""}`}
             disabled={isActiveLetters || isInactiveLetters || disabled}
           >
             {key}
