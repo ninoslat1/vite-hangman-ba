@@ -7,22 +7,36 @@ export const DeveloperNotes = () => {
             </div>
             <div className="drawer-side">
                 <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
-                <div className="menu bg-slate-900 text-sky-200 min-h-full w-80 p-4">
+                <div className="menu bg-slate-900 text-sky-200 min-h-full w-80">
                     <h1 className="text-center text-xl py-5">Developer Notes</h1>
                     <div className="font-kanit">
                         <div className="block py-2">
                             <cite>Welcome to Hang-<span className="text-[#d6989c]">ARU</span>. First, I want to say thank you to the Blue Archive community for their "UWWOOGGHHH 😭😭😭" and "CNUUY" spirit, which inspired me to develop this game until deployment.</cite>
                         </div>
                         <div className="block py-2">
-                            <cite>Blue Archive gave me a nostalgic feeling about my past, where my Sociology Teacher never gave up on teaching me her subject, even though sometimes I fled from her class or slept during her lessons. With her dedication to teaching, I got 90 as my final exam score in her subject. My past kind of reminds me of Sensei and his students, where he is willing to sacrifice anything to save them. In the future, I hope to become like my Sociology Teacher but in the Software Engineering field, where I teach junior SWEs about various topics and celebrate with them after we achieve something in our software development.</cite>
+                            <cite>Blue Archive gave me a nostalgic feeling about my past, where my Sociology Teacher never gave up on teaching me her subject, even though sometimes I fled from her class or slept during her lessons. With her dedication to teaching, I got 90 as my final exam score in her subject. My past kind of reminds me of Sensei and his students, where he is willing to sacrifice anything to save them. In the future, I hope to become like my Sociology Teacher but in the Software Engineering field, where I teach my junior SWEs and celebrate with them after we achieve something in our software development.</cite>
                         </div>
                         <div className="block py-2">
-                            <p>Please follow their GitHub to inspire me to further develop this game.</p>
+                            <p>Their project is my inspiration in building this project. please follow them on github</p>
                         </div>
-                        <div>
-                            <div>
-                                <img src="https://github.com/arufars.png?size=100" alt="GitHub Profile Picture"/>
-                                <p>Check out my repository: <a href="https://github.com/octocat/Hello-World">Hello World</a></p>
+                        <div className="flex items-center justify-between py-5 gap-2">
+                            <div className="flex flex-col items-center justify-center overflow-hidden w-20 h-20 mr-4">
+                                <a href="https://github.com/arufars/api-blue-archive" target="_blank">
+                                    <img src="https://github.com/arufars.png?size=50" alt="Arufars Profile Picture" className="w-full h-full object-cover rounded-full" />
+                                </a>
+                                <p className="text-center text-xs mt-2 overflow-ellipsis">Arufars</p>
+                            </div>
+                            <div className="flex flex-col items-center justify-center overflow-hidden w-20 h-20 mr-4">
+                                <a href="https://github.com/torikushiii/BlueArchiveAPI" target="_blank">
+                                    <img src="https://github.com/torikushiii.png?size=50" alt="Arufars Profile Picture" className="w-full h-full object-cover rounded-full"/>
+                                </a>
+                                <p className="text-center text-xs mt-2 overflow-ellipsis">Torikushii</p>
+                            </div>
+                            <div className="flex flex-col items-center justify-center overflow-hidden w-20 h-20 mr-4">
+                                <a href="https://github.com/WebDevSimplified/react-hangman" target="_blank">
+                                    <img src="https://github.com/WebDevSimplified.png?size=50" alt="Arufars Profile Picture" className="w-full h-full object-cover rounded-full"/>
+                                </a>
+                                <p className="text-center text-xs mt-2 overflow-ellipsis">WDS</p>
                             </div>
                         </div>
                     </div>
