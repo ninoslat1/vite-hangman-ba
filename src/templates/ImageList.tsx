@@ -19,6 +19,15 @@ import finalClueImgPng from "/finalClue.png"
 import finalClueImgWebp from "/finalClue.webp"
 import aruAskPng from "/aruAsk.png"
 import aruAskWebp from '/aruAsk.webp'
+import shockAru from '/blue-archive-rikuhachima.gif'
+
+export const shockAruImg = (
+    <picture>
+        <source srcSet={shockAru} type="image/webp" />
+        <source srcSet={shockAru} type="image/png" />
+        <img src={shockAru} alt="Shock Aru" className="bg-center" loading="lazy" />
+    </picture>
+)
 
 export const startImg = (
     <picture>
@@ -96,6 +105,6 @@ export const aruAskImg = (
     <picture>
         <source srcSet={aruAskWebp} type="image/webp" />
         <source srcSet={aruAskPng} type="image/png" />
-        <img src={aruAskPng} alt="Clue Image" className="bg-center"  loading="lazy"/>
+        <img src={aruAskPng} alt="Aru Ask Image" className="bg-center"  loading="lazy"/>
     </picture>
 )
