@@ -17,6 +17,8 @@ import clueImgPng from "/Clue.png"
 import clueImgWebp from "/Clue.webp"
 import finalClueImgPng from "/finalClue.png"
 import finalClueImgWebp from "/finalClue.webp"
+import aruAskPng from "/aruAsk.png"
+import aruAskWebp from '/aruAsk.webp'
 
 export const startImg = (
     <picture>
@@ -87,5 +89,13 @@ export const finalGuideImg = (
         <source srcSet={finalClueImgWebp} type="image/webp" />
         <source srcSet={finalClueImgPng} type="image/png" />
         <img src={finalClueImgPng} alt="Clue Image" className="bg-center"  loading="lazy"/>
+    </picture>
+)
+
+export const aruAskImg = (
+    <picture>
+        <source srcSet={aruAskWebp} type="image/webp" />
+        <source srcSet={aruAskPng} type="image/png" />
+        <img src={aruAskPng} alt="Clue Image" className="bg-center"  loading="lazy"/>
     </picture>
 )

@@ -7,7 +7,7 @@ export const DeveloperNotes = () => {
             </div>
             <div className="drawer-side">
                 <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
-                <div className="menu bg-slate-900 text-sky-200 min-h-full w-80">
+                <div className="bg-[#2f89e3] text-sky-200 min-h-full w-80 p-5">
                     <h1 className="text-center text-xl py-5">Developer Notes</h1>
                     <div className="font-kanit">
                         <div className="block py-2">
