@@ -11,12 +11,23 @@ import stickerSuperPanicPng from "/sticker_4.png"
 import stickerSuperPanicWebp from "/sticker_4.webp"
 import stickerSoulLeavePng from "/sticker_final.png"
 import stickerSoulLeaveWebp from "/sticker_final.webp"
-import bgImgPng from "/bg.png"
-import bgImgWebp from "/bg.webp"
+import bgImgPng from "/Countermeasures_3.png"
+import bgImgWebp from "/Countermeasures_3.webp"
 import clueImgPng from "/Clue.png"
 import clueImgWebp from "/Clue.webp"
 import finalClueImgPng from "/finalClue.png"
 import finalClueImgWebp from "/finalClue.webp"
+import aruAskPng from "/aruAsk.png"
+import aruAskWebp from '/aruAsk.webp'
+import shockAru from '/blue-archive-rikuhachima.gif'
+
+export const shockAruImg = (
+    <picture>
+        <source srcSet={shockAru} type="image/webp" />
+        <source srcSet={shockAru} type="image/png" />
+        <img src={shockAru} alt="Shock Aru" className="bg-center" loading="lazy" />
+    </picture>
+)
 
 export const startImg = (
     <picture>
@@ -87,5 +98,13 @@ export const finalGuideImg = (
         <source srcSet={finalClueImgWebp} type="image/webp" />
         <source srcSet={finalClueImgPng} type="image/png" />
         <img src={finalClueImgPng} alt="Clue Image" className="bg-center"  loading="lazy"/>
+    </picture>
+)
+
+export const aruAskImg = (
+    <picture>
+        <source srcSet={aruAskWebp} type="image/webp" />
+        <source srcSet={aruAskPng} type="image/png" />
+        <img src={aruAskPng} alt="Aru Ask Image" className="bg-center"  loading="lazy"/>
     </picture>
 )

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { finalGuideImg, guideOneImg } from '../templates/ImageList';
+import { finalGuideImg, guideOneImg, aruAskImg } from '../templates/ImageList';
 import { RightDownArrow } from '../templates/IconList';
 import { closeGuideModal, handleNextStep, handlePreviousStep, openGuideModal } from '../utils/handleModal';
 import { DeveloperNotes } from './DeveloperNotes';
@@ -17,6 +17,9 @@ export const MultiStepModal = () => {
       case 1:
         return (
           <div data-aos="fade-up" data-aos-duration="500">
+            <div className='w-28 h-28 absolute -top-20 -left-20'>
+              {aruAskImg}
+            </div>
             <RightDownArrow setIsGuideOpen={setIsGuideOpen}/>
             <h2 className='modal-head'>Welcome to Kivotos Hangman</h2>
             <p>Welcome to Blue Archive Hangman game. In this game, you must guess the student name before <span className='line-through font-bold pr-1'>Bak</span>Aru got totally hanged 😣</p>
@@ -25,6 +28,9 @@ export const MultiStepModal = () => {
       case 2:
         return (
           <div data-aos="fade-up" data-aos-duration="500">
+            <div className='w-28 h-28 absolute -top-20 -left-20'>
+              {aruAskImg}
+            </div>
             <RightDownArrow setIsGuideOpen={setIsGuideOpen}/>
             <h2 className='modal-head'>Guide: Part 1</h2>
             <div className='mx-auto'>
@@ -38,6 +44,9 @@ export const MultiStepModal = () => {
       case 3:
         return (
           <div data-aos="fade-up" data-aos-duration="500">
+            <div className='w-28 h-28 absolute -top-20 -left-20'>
+              {aruAskImg}
+            </div>
             <RightDownArrow setIsGuideOpen={setIsGuideOpen}/>
             <h2 className='modal-head'>Guide: Part 2</h2>
             <p>We provide an additional keyboard component for guessing the student name. (If the keyboard doesn't work, Sensei can send ticket to Hare 😊<span className='line-through font-bold px-1'>and wait one week to resolve the issue</span>)</p>
@@ -46,6 +55,9 @@ export const MultiStepModal = () => {
       case 4:
         return (
           <div data-aos="fade-up" data-aos-duration="500">
+            <div className='w-28 h-28 absolute -top-20 -left-20'>
+              {aruAskImg}
+            </div>
             <RightDownArrow setIsGuideOpen={setIsGuideOpen}/>
             <h2 className='modal-head'>Guide: Part 3</h2>
             {finalGuideImg}

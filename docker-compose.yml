@@ -5,5 +5,5 @@ services:
     image: ninoslat1/vite-hangman-ba:latest
     container_name: vite-hangman-ba
     ports:
-      - "5173:5173"
+      - "5000:5000"
     restart: always

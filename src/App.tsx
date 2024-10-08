@@ -6,9 +6,10 @@ import { HangmanStudent } from './components/HangmanStudent'
 import { HangmanClue } from './components/HangmanClue'
 import song from "/01 Mitsukiyo 01 Constant Moderato.mp3"
 import { LoadingComponent } from "./components/LoadingComponent"
-import MultiStepModal from "./components/MultiStepModal"
+// import MultiStepModal from "./components/MultiStepModal"
 import WinModalWrapper from "./templates/WinModalWrapper"
 import LoseModalWrapper from "./templates/LoseModalWrapper"
+import { DeveloperNotes } from "./components/DeveloperNotes"
 
 //Lazyload Component
 const BackgroundImage = lazy(() => import('./components/BackgroundImage'))
@@ -115,13 +116,13 @@ function App() {
 
       const MusicPlayer:FC = () => {
         return (
-          <div className="absolute right-5 top-5 md:right-10 md:top-10">
+          <>
               <label className="swap">
                 <input type="checkbox" checked={isPlaying} onChange={playPause} />
-                <svg className="swap-on fill-current text-[#CFF1FB] bg-[#2f89e3] w-8 h-8 lg:w-10 lg:h-10 p-2 rounded-full" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z"/></svg>
-                <svg className="swap-off fill-current text-slate-900 w-8 h-8 lg:w-10 lg:h-10 p-2 rounded-full" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M3,9H7L12,4V20L7,15H3V9M16.59,12L14,9.41L15.41,8L18,10.59L20.59,8L22,9.41L19.41,12L22,14.59L20.59,16L18,13.41L15.41,16L14,14.59L16.59,12Z"/></svg>
+                <svg className="swap-on fill-current text-[#FCFBB6] w-6 h-6 rounded-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z"/></svg>
+                <svg className="swap-off fill-current text-[#c6898d] w-6 h-6 rounded-full" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3,9H7L12,4V20L7,15H3V9M16.59,12L14,9.41L15.41,8L18,10.59L20.59,8L22,9.41L19.41,12L22,14.59L20.59,16L18,13.41L15.41,16L14,14.59L16.59,12Z"/></svg>
               </label>
-            </div>
+            </>
         )
       }
       
@@ -133,9 +134,14 @@ function App() {
                   {win && wordGuess ? <WinModalWrapper/> : null}
                   {lose && wordGuess ? <LoseModalWrapper/> : null}
                   <BackgroundImage/>
-                  <div className="h-full py-20 w-full bg-blue-900 rounded-md bg-clip-padding bg-opacity-10 border border-gray-100">
-                    <Time/>
-                    <MusicPlayer/>
+                  <div className="h-full py-5 w-full bg-blue-900 bg-clip-padding bg-opacity-10 border border-gray-100">
+                    <div className="flex items-center justify-between px-10">
+                        <Time />
+                        <div className="flex items-center gap-5">
+                            <DeveloperNotes />
+                            <MusicPlayer />
+                        </div>
+                    </div>
                     <div className='flex flex-col mx-auto items-center'>
                       <HangmanClue squadType={clue.squadType!} profile={clue.profile!} name={clue.name!} school={clue.school!} rarity={clue.rarity!}/>
                       <HangmanStudent data={falseGuess.length}/>
@@ -144,7 +150,7 @@ function App() {
                         <Keyboard activeLetters={guessedLetter.filter(letter => wordGuess.name!.includes(letter))} inactiveLetters={falseGuess} addGuessLetter={addGuessLetter} disabled={lose || win }/>
                       </div>
                     </div>
-                  <MultiStepModal/>
+                  
                   </div>
               </div>
           }
