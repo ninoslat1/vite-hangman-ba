@@ -2,7 +2,7 @@ import { Notification } from "../templates/IconList"
 
 export const DeveloperNotes = () => {
     return (
-        <div className="drawer">
+        <div className="drawer flex">
             <input id="my-drawer" type="checkbox" className="drawer-toggle" />
             <div className="drawer-content">
                 <label htmlFor="my-drawer" className="drawer-button hover:cursor-pointer text-[#c6898d]"><Notification/></label>
