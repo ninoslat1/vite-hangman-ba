@@ -67,3 +67,8 @@ export type TAnimatedStep = {
     hasAnimated: boolean
     setHasAnimated: Dispatch<SetStateAction<boolean>>
 }
+
+export type TMusic = {
+    isPlaying: boolean;
+    playPause: () => void;
+}
