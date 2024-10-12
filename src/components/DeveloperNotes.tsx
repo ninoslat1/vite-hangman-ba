@@ -9,11 +9,11 @@ export const DeveloperNotes = () => {
             </div>
             <div className="drawer-side z-[100]">
                 <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
-                <div className="bg-[#D6B6CC] text-[#FCFBB6] min-h-full w-80 p-5">
-                    <h1 className="text-center text-xl py-5">Developer Notes</h1>
+                <div className="bg-[#c6898d] text-[#FCFBB6] min-h-full w-80 p-5">
+                    <h1 className="text-center text-2xl py-5 font-bold">Developer Notes</h1>
                     <div className="font-kanit font-semibold">
                         <div className="block py-2">
-                            <cite>Welcome to Hang-<span className="text-[#c6898d]">ARU</span>. First, I want to say thank you to the Blue Archive community for their "UWWOOGGHHH 😭😭😭" and "CNUUY" spirit, which inspired me to develop this game until deployment.</cite>
+                            <cite>Welcome to Hang-<span className="text-[#D6B6CC]">ARU</span>. First, I want to say thank you to the Blue Archive community for their "UWWOOGGHHH 😭😭😭" and "CNUUY" spirit, which inspired me to develop this game until deployment.</cite>
                         </div>
                         <div className="block py-2">
                             <cite>Blue Archive gave me a nostalgic feeling about my past, where my Sociology Teacher never gave up on teaching me her subject, even though sometimes I fled from her class or slept during her lessons. With her dedication to teaching, I got 90 as my final exam score in her subject. My past kind of reminds me of Sensei and his students, where he is willing to sacrifice anything to save them. In the future, I hope to become like my Sociology Teacher but in the Software Engineering field, where I teach my junior SWEs and celebrate with them after we achieve something in our software development.</cite>

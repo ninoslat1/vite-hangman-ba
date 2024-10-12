@@ -20,12 +20,18 @@ import finalClueImgWebp from "/finalClue.webp"
 import aruAskPng from "/aruAsk.png"
 import aruAskWebp from '/aruAsk.webp'
 import shockAru from '/blue-archive-rikuhachima.gif'
+import winAhru from '/ahru.gif'
 
+export const winAhruImg = (
+    <picture>
+        <source srcSet={winAhru} type="image/gif" />
+        <img src={winAhru} alt="Shock Aru" className="max-w-full max-h-full bg-center" loading="lazy" />
+    </picture>
+)
 export const shockAruImg = (
     <picture>
-        <source srcSet={shockAru} type="image/webp" />
-        <source srcSet={shockAru} type="image/png" />
-        <img src={shockAru} alt="Shock Aru" className="bg-center" loading="lazy" />
+        <source srcSet={shockAru} type="image/gif" />
+        <img src={shockAru} alt="Shock Aru" className="max-w-full max-h-full bg-center" loading="lazy" />
     </picture>
 )
 

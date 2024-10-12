@@ -10,7 +10,7 @@ const LoseModalWrapper = () => {
 
   return (
         <NoteModalWrapper>
-            <div className='w-28 h-28 absolute -top-10 -left-10'>
+            <div className='absolute -top-10 -left-6 w-24 h-24'>
               {shockAruImg}
             </div>
             <p className='text-center text-2xl font-extrabold font-kanit p-4'>YOU LOSE</p>
