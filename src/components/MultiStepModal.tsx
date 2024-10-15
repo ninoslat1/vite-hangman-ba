@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { finalGuideImg, guideOneImg, aruAskImg } from '../templates/ImageList';
-import { RightDownArrow } from '../templates/IconList';
+import { Guide, RightDownArrow } from '../templates/IconList';
 import { closeGuideModal, handleNextStep, handlePreviousStep, openGuideModal } from '../utils/handleModal';
-import { DeveloperNotes } from './DeveloperNotes';
 import { GuideModalWrapper } from '../templates/GuideModalWrapper';
 import { NoteModalWrapper } from '../templates/NoteModalWrapper';
 
@@ -71,34 +70,31 @@ export const MultiStepModal = () => {
 
   return (
     <>
-      <div className="text-sky-200 font-bold text-xs inline-flex gap-2.5 items-center w-full justify-between px-5">
-        <button onClick={() => openGuideModal(setIsGuideOpen)}>How to Play</button>
-        <div className="justify-between">
-          <DeveloperNotes />
-        </div>
+      <div className="text-[#c6898d] font-bold text-xs inline-flex gap-2.5 items-center w-full justify-between">
+        <button onClick={() => openGuideModal(setIsGuideOpen)}><Guide/></button>
       </div>
 
       {isGuideOpen ? (
         <GuideModalWrapper>
           <div className="content-wrapper">
-            <div className={`content-item ${isAnimating ? 'fade-out' : 'fade-in'}`}>
+            <div className={`content-item py-5 ${isAnimating ? 'fade-out' : 'fade-in'}`}>
               {renderModalContent(step)}
             </div>
           </div>
 
           <div className="flex justify-between">
             {step > 1 && (
-            <button className={`btn-main ${isAnimating ? "invisible" : ""}`} onClick={() => handlePreviousStep(setStep, setIsAnimating, isAnimating)} disabled={isAnimating}>
+              <button className={`btn btn-sm bg-[#82c4bd] text-[#FCFBB6] border-none  ${isAnimating ? "invisible" : ""}`} onClick={() => handlePreviousStep(setStep, setIsAnimating, isAnimating)} disabled={isAnimating}>
                 Previous
               </button>
             )}
 
             {step < 4 ? (
-              <button className={`btn-main ${isAnimating ? "invisible" : ""}`} onClick={() => handleNextStep(setStep, setIsAnimating, isAnimating)} disabled={isAnimating}>
+              <button className={`btn btn-sm bg-[#82c4bd] text-[#FCFBB6] border-none  ${isAnimating ? "invisible" : ""}`} onClick={() => handleNextStep(setStep, setIsAnimating, isAnimating)} disabled={isAnimating}>
                 Next
               </button>
             ) : (
-              <button className={`btn-main ${isAnimating ? "invisible" : ""}`} onClick={() => closeGuideModal(setIsGuideOpen, setStep)}>
+              <button className={`btn btn-sm bg-[#82c4bd] text-[#FCFBB6] border-none  ${isAnimating ? "invisible" : ""}`} onClick={() => closeGuideModal(setIsGuideOpen, setStep)}>
                 Close
               </button>
             )}

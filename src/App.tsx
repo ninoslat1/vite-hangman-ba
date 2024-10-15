@@ -11,6 +11,7 @@ import WinModalWrapper from "./templates/WinModalWrapper"
 import LoseModalWrapper from "./templates/LoseModalWrapper"
 import { DeveloperNotes } from "./components/DeveloperNotes"
 import { MusicPlayer } from "./components/MusicPlayer"
+import MultiStepModal from "./components/MultiStepModal"
 
 //Lazyload Component
 const BackgroundImage = lazy(() => import('./components/BackgroundImage'))
@@ -127,6 +128,7 @@ function App() {
                     <div className="flex items-center justify-between px-10">
                         <Time />
                         <div className="flex items-center gap-5">
+                            <MultiStepModal/>
                             <DeveloperNotes />
                             <MusicPlayer isPlaying={isPlaying} playPause={playPause}/>
                         </div>
