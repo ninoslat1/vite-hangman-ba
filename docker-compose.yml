@@ -2,6 +2,9 @@ version: '3.7'
 
 services:
   vite-hangman-ba:
+    build:
+      context: .
+      dockerfile: Dockerfile
     image: ninoslat1/vite-hangman-ba:latest
     container_name: vite-hangman-ba
     ports:
